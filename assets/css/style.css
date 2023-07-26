@@ -5,7 +5,7 @@
   --color-heading: #f4eee0;
   --color-base: #393646;
   --color-base2: #4f4557;
-  --color-brand: #cd1818;
+  --color-brand: #e6ec36;
   --color-brand2: #f4eee0;
   --sidbar-width: 240px;
   --font-base: "Bai Jamjuree";
@@ -41,24 +41,19 @@ img {
 .text-brand {
   color: var(--color-brand);
 }
-.header-text {
-  border-right: 5px solid;
-  width: 93%;
-  display: inline-block;
-
-  overflow: hidden;
-  animation: typing 5.5s steps(33), cursor 0.4s step-end infinite alternate;
-  animation-delay: 0.25s;
+.text-brand2 {
+  color: var(--color-brand2);
 }
-@keyframes cursor {
-  50% {
-    border-color: transparent;
-  }
+.social-icon {
+  color: var(--color-brand2);
+  background-color: var(--color-base);
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 32px;
+  transition: all 0.4s ease;
 }
-@keyframes typing {
-  from {
-    width: 0;
-  }
+.social-icon:hover {
+  color: var(--color-brand);
 }
 .full-height {
   min-height: 100vh;
@@ -89,7 +84,7 @@ img {
   align-items: center;
   font-size: 32px;
   background-color: var(--color-brand);
-  color: var(--color-brand2);
+  color: var(--color-base2);
 }
 .projectcard {
   background-color: var(--color-base);
@@ -98,6 +93,7 @@ img {
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
+  width: 90%;
   height: 500px;
   align-items: center;
   gap: 5px;
@@ -115,6 +111,12 @@ img {
   width: 250px;
   height: 50%;
   border-radius: 10px;
+}
+.card-img-scroll {
+  width: 250px;
+  height: 50%;
+  border-radius: 10px;
+  overflow-y: scroll;
 }
 /*NAVBAR*/
 
@@ -144,11 +146,71 @@ img {
   .navbar-brand img {
     border: 8px solid var(--color-brand);
   }
+  #content-wrapper {
+    padding-left: var(--sidbar-width);
+  }
+
+  .header-text {
+    border-right: 5px solid;
+    width: 90%;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    animation: typing 2s steps(33), cursor 0.4s step-end infinite alternate;
+    animation-delay: 0.25s;
+  }
+  @keyframes cursor {
+    50% {
+      border-color: transparent;
+    }
+  }
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+  }
+  .projectcard {
+    background-color: var(--color-base);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 500px;
+    align-items: center;
+    gap: 5px;
+  }
+  .about-me {
+    color: var(--color-brand2);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .aboutme-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  .image-focus {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .image-focus img {
+    transition: transform 0.3s ease; /* Transición suave para el efecto de zoom */
+  }
+
+  .image-focus:hover img {
+    transform: scale(
+      1.1
+    ); /* Valor mayor a 1 hace zoom in, menor a 1 haría zoom out */
+  }
 }
 /* CONTENT WRAPPER */
-#content-wrapper {
-  padding-left: var(--sidbar-width);
-}
+
 /* BTN */
 .btn {
   padding: 12px 28px;
@@ -156,13 +218,13 @@ img {
 }
 .btn-brand {
   background-color: var(--color-brand);
-  color: var(--color-base);
+  color: var(--color-base2);
   border: 2px solid var(--color-brand);
 }
 .btn-brand:hover,
 .btn-brand:focus {
   background-color: var(--color-brand2);
-  color: var(--color-base);
+  color: var(--color-base2);
   border-color: var(--color-brand2);
 }
 .link-custom {
