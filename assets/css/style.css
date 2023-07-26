@@ -72,6 +72,31 @@ img {
   background-color: var(--color-brand);
   color: var(--color-brand2);
 }
+.projectcard {
+  background-color: var(--color-base);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  align-items: center;
+  gap: 5px;
+}
+.projectcard .project-title {
+  height: 10%;
+}
+.projectcard .project-description {
+  height: 30%;
+}
+.project-link {
+  height: 10%;
+}
+.card-img {
+  width: 250px;
+  height: 50%;
+  border-radius: 10px;
+}
 /*NAVBAR*/
 
 .navbar {
