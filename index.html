@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./assets/css/aos.css" />
     <link rel="stylesheet" href="./assets/css/line-awesome.min.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/terminal.css" />
   </head>
   <body data-bs-spy="scroll" data-bs-target=".navbar">
     <!-- NAVBAR -->
@@ -15,11 +16,13 @@
       <div class="container flex-lg-column">
         <a class="navbar-brand mx-lg-auto mb-lg-4" href="#"
           ><span class="h3 font-bold d-block d-lg-none">Juan Sanchez</span>
-          <img
+          <!--
+            <img
             class="d-lg-block rounded-circle"
             src="./assets/images/profiletemplate.jpg"
             alt=""
-        /></a>
+          -->
+        </a>
         <button
           class="navbar-toggler"
           type="button"
@@ -77,26 +80,26 @@
           </div>
           <div class="row mt-4">
             <!-- Ícono de LinkedIn -->
-            <div class="col-1 text-center">
+            <div class="col-4 col-md-1 text-center">
               <a
                 href="https://www.linkedin.com/in/juanschezmor/"
                 target="_blank"
               >
-                <i class="lab la-linkedin-in la-2x social-icon"></i>
+                <i class="lab la-linkedin-in la-3x social-icon"></i>
               </a>
             </div>
 
             <!-- Ícono de GitHub -->
-            <div class="col-1 text-center">
+            <div class="col-4 col-md-1 text-center">
               <a href="https://github.com/juansm01" target="_blank">
-                <i class="lab la-github la-2x social-icon"></i>
+                <i class="lab la-github la-3x social-icon"></i>
               </a>
             </div>
 
             <!-- Ícono de Twitter -->
-            <div class="col-1 text-center">
+            <div class="col-4 col-md-1 text-center">
               <a href="https://twitter.com/_juansm01" target="_blank">
-                <i class="lab la-twitter la-2x social-icon"></i>
+                <i class="lab la-twitter la-3x social-icon"></i>
               </a>
             </div>
           </div>
@@ -112,9 +115,11 @@
               <h6 class="text-brand">SKILLS</h6>
               <h1>My Skills</h1>
             </div>
-            <div class="row">
+            <div class="row column-gap-1 row-gap-2">
               <div class="col-md-4">
-                <div class="skill p-4 bg-base rounded-4 shadow-effect">
+                <div
+                  class="skill web-developer p-4 bg-base rounded-4 shadow-effect"
+                >
                   <div class="iconbox rounded-4">
                     <i class="las la-code"></i>
                   </div>
@@ -127,7 +132,9 @@
                 </div>
               </div>
               <div class="col-md-4">
-                <div class="skill p-4 bg-base rounded-4 shadow-effect">
+                <div
+                  class="skill dba-data-analyst p-4 bg-base rounded-4 shadow-effect"
+                >
                   <div class="iconbox rounded-4">
                     <i class="las la-database"></i>
                   </div>
@@ -146,7 +153,7 @@
                   src="./assets/images/html-logo.png"
                   alt="HTML"
                   title="HTML"
-                  class="img-fluid skill-icon"
+                  class="img-fluid skill-icon web-developer"
                 />
               </div>
               <div class="col-md-1">
@@ -154,7 +161,7 @@
                   src="./assets/images/css.png"
                   alt="CSS"
                   title="CSS"
-                  class="img-fluid skill-icon"
+                  class="img-fluid skill-icon web-developer"
                 />
               </div>
               <div class="col-md-1">
@@ -162,7 +169,7 @@
                   src="./assets/images/tailwind-logo.png"
                   title="Tailwind"
                   alt="Tailwind"
-                  class="img-fluid skill-icon"
+                  class="img-fluid skill-icon web-developer"
                 />
               </div>
               <div class="col-md-1">
@@ -170,7 +177,7 @@
                   src="./assets/images/bootstrap-logo.png"
                   title="BootStrap"
                   alt="Bootstrap"
-                  class="img-fluid skill-icon"
+                  class="img-fluid skill-icon web-developer"
                 />
               </div>
               <div class="col-md-1">
@@ -178,7 +185,7 @@
                   src="./assets/images/js-logo.png"
                   title="JavaScript"
                   alt="JavaScript"
-                  class="img-fluid skill-icon"
+                  class="img-fluid skill-icon web-developer"
                 />
               </div>
               <div class="col-md-1">
@@ -186,7 +193,7 @@
                   src="./assets/images/react-logo.png"
                   title="React"
                   alt="React"
-                  class="img-fluid skill-icon"
+                  class="img-fluid skill-icon web-developer"
                 />
               </div>
               <div class="col-md-1">
@@ -194,7 +201,7 @@
                   src="./assets/images/python-logo.png"
                   title="Python"
                   alt="Python"
-                  class="img-fluid skill-icon"
+                  class="img-fluid skill-icon dba-data-analyst"
                 />
               </div>
               <div class="col-md-1">
@@ -202,7 +209,7 @@
                   src="./assets/images/java-logo.png"
                   title="Java"
                   alt="Java"
-                  class="img-fluid skill-icon"
+                  class="img-fluid skill-icon dba-data-analyst"
                 />
               </div>
               <div class="col-md-1">
@@ -210,7 +217,7 @@
                   src="./assets/images/mysql-logo.png"
                   title="MySQL"
                   alt="MySQL"
-                  class="img-fluid skill-icon"
+                  class="img-fluid skill-icon dba-data-analyst"
                 />
               </div>
             </div>
@@ -239,7 +246,7 @@
                 </div>
 
                 <div class="project-title">
-                  <h3 class="text-brand">Ahorcado Ecológico</h3>
+                  <h3 class="text-brand">Hangman game</h3>
                 </div>
                 <div class="project-description">
                   <p>
@@ -263,7 +270,7 @@
                   />
                 </div>
                 <div class="project-title">
-                  <h3 class="text-brand">Casa Milan</h3>
+                  <h3 class="text-brand">"Casa Milan" web</h3>
                 </div>
                 <div class="project-description">
                   <p>
@@ -286,12 +293,12 @@
                   />
                 </div>
                 <div class="project-title">
-                  <h3 class="text-brand">To-Do List</h3>
+                  <h3 class="text-brand">To-Do List web app</h3>
                 </div>
                 <div class="project-description">
                   <p>
                     Todo-List web app where users can easily add, manage, and
-                    track tasks efficiently
+                    track tasks efficiently.
                   </p>
                 </div>
                 <div class="project-link">
@@ -315,7 +322,7 @@
               <h1></h1>
             </div>
             <div class="row">
-              <div class="about-me col">
+              <div class="about-me col-md-6">
                 <p>
                   //Hola me presento me llamo Javier, soy un chico educado y de
                   lo mas honrado.<br />
@@ -329,6 +336,31 @@
                 <p></p>
                 <p></p>
                 <p></p>
+              </div>
+              <div
+                class="col-md-6 d-flex justify-content-center align-items-center"
+              >
+                <div class="container-terminal">
+                  <div class="container_terminal"></div>
+                  <div class="terminal_toolbar">
+                    <div class="butt">
+                      <button
+                        class="boton-terminal boton-terminal-color"
+                      ></button>
+                      <button class="boton-terminal"></button>
+                      <button class="boton-terminal"></button>
+                    </div>
+                    <p class="user">juan@admin: ~</p>
+                  </div>
+                  <div class="terminal_body">
+                    <div class="terminal_promt">
+                      <span class="terminal_user">juanschezmor@admin:</span>
+                      <span class="terminal_location">~</span>
+                      <span class="terminal_bling">$</span>
+                      <span class="terminal_cursor"></span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
