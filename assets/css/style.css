@@ -69,6 +69,10 @@ img {
 .text-brand2 {
   color: var(--color-brand2);
 }
+.img-icon {
+  width: 20%;
+  height: 100%;
+}
 .social-icon {
   color: var(--color-brand2);
   background-color: var(--color-base);
@@ -124,7 +128,7 @@ img {
   gap: 5px;
 }
 .projectcard .project-title {
-  height: 10%;
+  height: 20%;
 }
 .projectcard .project-description {
   height: 30%;

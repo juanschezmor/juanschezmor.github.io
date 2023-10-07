@@ -16,12 +16,12 @@
       <div class="container flex-lg-column">
         <a class="navbar-brand mx-lg-auto mb-lg-4" href="#"
           ><span class="h3 font-bold d-block d-lg-none">Juan Sanchez</span>
-          <!--
-            <img
+
+          <img
             class="d-lg-block rounded-circle"
-            src="./assets/images/profiletemplate.jpg"
+            src="./assets/images/profile-pic.jpeg"
             alt=""
-          -->
+          />
         </a>
         <button
           class="navbar-toggler"
@@ -79,7 +79,13 @@
               </p>
               <div data-aos="fade-up" data-aos-delay="600">
                 <a href="#contact" class="btn btn-brand me-3">Contact me!</a>
-                <a class="link-custom">Download CV</a>
+                <a
+                  id="downloadButton"
+                  class="link-custom"
+                  href="./assets/CV_JuanSanchezMoreno.pdf"
+                  download="CV_JuanSanchezMoreno.pdf"
+                  >Download CV</a
+                >
               </div>
             </div>
           </div>
@@ -101,10 +107,10 @@
               </a>
             </div>
 
-            <!-- Ícono de Twitter -->
+            <!-- Ícono de Gmail -->
             <div class="col-4 col-md-1 text-center">
-              <a href="https://twitter.com/_juansm01" target="_blank">
-                <i class="lab la-twitter la-3x social-icon"></i>
+              <a href="mailto:juanschezmor@gmail.com" target="_blank">
+                <i class="las la-envelope la-3x social-icon"></i>
               </a>
             </div>
           </div>
@@ -121,7 +127,7 @@
               <h1>My Skills</h1>
             </div>
             <div class="row column-gap-1 row-gap-2">
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div
                   class="skill web-developer p-4 bg-base rounded-4 shadow-effect"
                 >
@@ -130,13 +136,15 @@
                   </div>
                   <h4 class="mt-4 mb-2">Web Developer</h4>
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Ipsa autem sit ea vel illo hic aut recusandae quod fugit
+                    -Experience in building and maintaining web applications.
                   </p>
-                  <a href="#" class="link-custom">Read more</a>
+                  <p>
+                    -Proficient in HTML, CSS, JavaScript. -Begginer level in
+                    React, willing to keep learning and improving.
+                  </p>
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div
                   class="skill dba-data-analyst p-4 bg-base rounded-4 shadow-effect"
                 >
@@ -145,10 +153,37 @@
                   </div>
                   <h4 class="mt-4 mb-2">DBA,Data Analyst</h4>
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Ipsa autem sit ea vel illo hic aut recusandae quod fugit
+                    -I can analyse data from a CSV file in both Java and Python
+                    languages.
                   </p>
-                  <a href="#" class="link-custom">Read more</a>
+                  <p>
+                    -SQL knowledge in performing queries, manipulating data
+                    (inserting, updating, and deleting), developing functions
+                    and procedures, implementing loops, and utilizing triggers
+                    to ensure database integrity and efficiency.
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div
+                  class="skill machine-learning p-4 bg-base rounded-4 shadow-effect"
+                >
+                  <div class="iconbox rounded-4">
+                    <i class="las la-database"></i>
+                  </div>
+                  <h4 class="mt-4 mb-2">Machine Learning</h4>
+                  <p>
+                    -Experience in developing and fine-tuning machine learning
+                    models.
+                  </p>
+                  <p>
+                    -Proficient in data preprocessing, model training, and
+                    hyperparameter optimization.
+                  </p>
+                  <p>
+                    -Eager to learn and continually improve in the field of
+                    Machine Learning.
+                  </p>
                 </div>
               </div>
             </div>
@@ -207,7 +242,7 @@
                     src="./assets/images/python-logo.png"
                     title="Python"
                     alt="Python"
-                    class="skill-icon dba-data-analyst"
+                    class="skill-icon dba-data-analyst machine-learning"
                   />
                 </div>
                 <div class="g-sm-1">
@@ -224,6 +259,30 @@
                     title="MySQL"
                     alt="MySQL"
                     class="skill-icon dba-data-analyst"
+                  />
+                </div>
+                <div class="g-sm-1">
+                  <img
+                    src="./assets/images/tensorflow-logo.png"
+                    title="TensorFlow"
+                    alt="TensorFlow"
+                    class="skill-icon machine-learning"
+                  />
+                </div>
+                <div class="g-sm-1">
+                  <img
+                    src="./assets/images/pandas_secondary.svg"
+                    title="Pandas"
+                    alt="Pandas"
+                    class="skill-icon bg-white dba-data-analyst machine-learning"
+                  />
+                </div>
+                <div class="g-sm-1">
+                  <img
+                    src="./assets/images/numpylogoiconlight.png"
+                    title="Numpy"
+                    alt="Numpy"
+                    class="skill-icon dba-data-analyst machine-learning"
                   />
                 </div>
               </div>
@@ -263,16 +322,22 @@
                 </div>
 
                 <div class="project-link">
-                  <a href="#" class="link-custom">Read more</a>
+                  <a href="#" class="link-custom"
+                    ><img
+                      class="img-icon"
+                      src="./assets/images/github.svg"
+                      alt=""
+                    />Github</a
+                  >
                 </div>
               </div>
             </div>
             <div class="col-md-6 col-lg-4">
               <div class="projectcard shadow-effect">
-                <div class="card-img-scroll">
+                <div class="card-img">
                   <img
-                    class="mx-auto d-block overflow-hidden"
-                    src="./assets/images/casamilan-icon.png"
+                    class="mx-auto d-block h-100 w-100"
+                    src="./assets/images/casamilanlogo.jpeg"
                     alt=""
                   />
                 </div>
@@ -286,7 +351,13 @@
                   </p>
                 </div>
                 <div class="project-link">
-                  <a href="#" class="link-custom">Read more</a>
+                  <a href="#" class="link-custom"
+                    ><img
+                      class="img-icon"
+                      src="./assets/images/github.svg"
+                      alt=""
+                    />Github</a
+                  >
                 </div>
               </div>
             </div>
@@ -300,7 +371,7 @@
                   />
                 </div>
                 <div class="project-title">
-                  <h3 class="text-brand text-nowrap">To-Do List web app</h3>
+                  <h3 class="text-brand">To-Do List web app</h3>
                 </div>
                 <div class="project-description">
                   <p>
@@ -309,7 +380,45 @@
                   </p>
                 </div>
                 <div class="project-link">
-                  <a href="#" class="link-custom">Read more</a>
+                  <a href="#" class="link-custom"
+                    ><img
+                      class="img-icon"
+                      src="./assets/images/github.svg"
+                      alt=""
+                    />Github</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="projectcard shadow-effect">
+                <div class="card-img">
+                  <img
+                    class="mx-auto d-block h-100 w-100"
+                    src="./assets/images/logo-breast.jpeg"
+                    alt=""
+                  />
+                </div>
+                <div class="project-title">
+                  <h3 class="text-brand text-center">
+                    Breast Cancer Prediction
+                  </h3>
+                </div>
+                <div class="project-description">
+                  <p>
+                    Developed two predictive models for breast cancer detection:
+                    one based on biopsy data and another utilizing mammogram
+                    images for early detection.
+                  </p>
+                </div>
+                <div class="project-link">
+                  <a href="#" class="link-custom"
+                    ><img
+                      class="img-icon"
+                      src="./assets/images/github.svg"
+                      alt=""
+                    />Github</a
+                  >
                 </div>
               </div>
             </div>
@@ -324,28 +433,40 @@
       <section id="about" class="full-height px-lg-5">
         <div class="container">
           <div class="row pb-4">
-            <div class="col-lg-8">
+            <div class="col-lg-8 mb-4">
               <h6 class="text-brand">&lt;/About Me&gt;</h6>
               <h1></h1>
             </div>
             <div class="row">
-              <div class="about-me col-md-6">
+              <div class="about-me col-md-8">
+                <h2>Hello world! 👋</h2>
                 <p>
-                  //Hola me presento me llamo Javier, soy un chico educado y de
-                  lo mas honrado.<br />
-                  //Gracias a dios, pijo nací. Si tu eres otra cosa te has
-                  equivocado.<br />
-                  //Tengo tres pisos y un chalet, para los veranos.<br />
-                  //Te lo he contado sin querer, no quiero parecer sobrado<br />
-                  //Me planteo estudiar entre múltiples carreras, <br />
-                  //Derecho, empresariales o...y ya esta<br />
+                  💻 I'm a Developer with experience in HTML, CSS, and
+                  ReactJS.Graduated in Multiplatform Application Development
+                  HNC.
                 </p>
-                <p></p>
-                <p></p>
-                <p></p>
+                <p>
+                  🚀 Passionate about new technologies and the digital realm,
+                  always seeking opportunities for learning and growth.
+                </p>
+                <p>
+                  🤝 I have the ability to work both independently and as part
+                  of a team, with a focus on a collaborative and positive
+                  environment.
+                </p>
+
+                <p>
+                  🤖 Currently, I'm diving into the exciting field of Artificial
+                  Intelligence (AI) and Machine Learning, striving to learn and
+                  advance in this thrilling world.
+                </p>
+                <p>
+                  Join me on this journey of continuous learning and project
+                  exploration!
+                </p>
               </div>
               <div
-                class="col-md-6 d-flex justify-content-center align-items-center"
+                class="col-md-4 d-flex justify-content-center align-items-center"
               >
                 <div class="container-terminal">
                   <div class="container_terminal"></div>
@@ -382,31 +503,25 @@
             <h1>How can you reach me</h1>
           </div>
           <div class="w-100 h-100 d-flex justify-content-center p-md-5">
-            <form class="w-50 h-100">
+            <form class="w-50 h-100" onsubmit="return validateForm()">
               <!-- Name input -->
               <div class="form-outline mb-4">
-                <input type="text" id="form4Example1" class="form-control" />
-                <label class="form-label text-brand2" for="form4Example1"
-                  >Name</label
-                >
+                <input type="text" id="name" class="form-control" />
+                <label class="form-label text-brand2" for="name">Name</label>
               </div>
 
               <!-- Email input -->
               <div class="form-outline mb-4">
-                <input type="email" id="form4Example2" class="form-control" />
-                <label class="form-label text-brand2" for="form4Example2"
+                <input type="email" id="email" class="form-control" />
+                <label class="form-label text-brand2" for="email"
                   >Email address</label
                 >
               </div>
 
               <!-- Message input -->
               <div class="form-outline mb-4">
-                <textarea
-                  class="form-control"
-                  id="form4Example3"
-                  rows="4"
-                ></textarea>
-                <label class="form-label text-brand2" for="form4Example3"
+                <textarea class="form-control" id="message" rows="4"></textarea>
+                <label class="form-label text-brand2" for="message"
                   >Message</label
                 >
               </div>

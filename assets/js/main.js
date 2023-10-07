@@ -37,6 +37,7 @@ function showAllSkillIcons() {
 document.addEventListener("DOMContentLoaded", () => {
   const webDeveloperSkill = document.querySelector(".web-developer");
   const dbaDataAnalystSkill = document.querySelector(".dba-data-analyst");
+  const machineLearningSkill = document.querySelector(".machine-learning");
 
   webDeveloperSkill.addEventListener("mouseover", () => {
     showSkillIcons("web-developer");
@@ -44,6 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   dbaDataAnalystSkill.addEventListener("mouseover", () => {
     showSkillIcons("dba-data-analyst");
+  });
+  machineLearningSkill.addEventListener("mouseover", () => {
+    showSkillIcons("machine-learning");
   });
 
   // Evento mouseleave para restablecer todas las skill-icons
@@ -54,4 +58,23 @@ document.addEventListener("DOMContentLoaded", () => {
   dbaDataAnalystSkill.addEventListener("mouseleave", () => {
     showAllSkillIcons();
   });
+  machineLearningSkill.addEventListener("mouseleave", () => {
+    showAllSkillIcons();
+  });
 });
+
+function validateForm() {
+  var name = document.getElementById("name").value;
+  var email = document.getElementById("email").value;
+  var message = document.getElementById("message").value;
+
+  if (name === "" || email === "" || message === "") {
+    alert("Please fill in all fields.");
+    return false;
+  }
+
+  console.log("Validating email...");
+  console.log(name, email, message);
+
+  return true; // Envía el formulario si todo está validado correctamente
+}
