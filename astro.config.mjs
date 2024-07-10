@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config';
-import icon from 'astro-icon';
+import icon from 'logo';
 
 import react from '@astrojs/react';
 
