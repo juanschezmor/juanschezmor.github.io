@@ -1,0 +1,47 @@
+@import './bootstrap.scss';
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+:root {
+  --primary-color: red; /* Bittersweet */
+  --text-color: #3a3335ff; /* Jet */
+  --accent-color: #1f1d2e; /* Raspberry */
+  --background-color: #747483; /* Papaya Whip */
+  --accent-color2: #747c7c;
+  --secondary-text-color: #e8f1f9; /* Ash Gray */
+
+  --header-height: calc(20px + 4rem);
+}
+html {
+  font-family: system-ui, sans-serif;
+  background: var(--background-color);
+  background-size: 224px;
+}
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--text-color);
+}
+code {
+  font-family:
+    Menlo,
+    Monaco,
+    Lucida Console,
+    Liberation Mono,
+    DejaVu Sans Mono,
+    Bitstream Vera Sans Mono,
+    Courier New,
+    monospace;
+}
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-color);
+  color: var(--background-color);
+}

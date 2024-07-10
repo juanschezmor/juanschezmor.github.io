@@ -1,4 +1,12 @@
 import { defineConfig } from 'astro/config';
+import icon from 'astro-icon';
+
+import react from '@astrojs/react';
 
 // https://astro.build/config
-export default defineConfig({});
+export default defineConfig({
+  integrations: [icon(), react()],
+  css: {
+    global: 'src/styles/global.css',
+  },
+});

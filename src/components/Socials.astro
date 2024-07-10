@@ -1,0 +1,45 @@
+---
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import Linkedin from '../icons/Linkedin.astro';
+import Github from '../icons/Github.astro';
+import Mail from '../icons/Mail.astro';
+---
+
+<div class="row socials">
+  <a
+    href="https://www.linkedin.com/in/juanschezmor/"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="col-4"><Linkedin width="25px" height="25px" /></a
+  >
+  <a
+    href="https://github.com/juanschezmor"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="col-4"><Github width="25px" height="25px" /></a
+  >
+  <a href="mailto:juanschezmor@gmail.com" class="col-4"
+    ><Mail width="25px" height="25px" /></a
+  >
+</div>
+<style scoped>
+  .socials a {
+    color: var(--secondary-text-color);
+    text-decoration: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+  }
+  .socials a:hover {
+    color: var(--primary-color);
+  }
+  .socials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 60%;
+  }
+</style>

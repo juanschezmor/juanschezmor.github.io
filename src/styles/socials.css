@@ -1,0 +1,19 @@
+.socials a {
+  color: var(--secondary-text-color);
+  text-decoration: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+.socials a:hover {
+  color: var(--primary-color);
+}
+.socials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 60%;
+}

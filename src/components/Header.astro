@@ -1,0 +1,76 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+---
+
+<header>
+  <div class="logo">
+    <Image src={logo} alt="logo" width="200" height="150" />
+  </div>
+
+  <nav class="d-none d-md-flex d-lg-flex">
+    <a href="/">Home</a>
+    <a href="#about-me">About</a>
+    <a href="#tech-stack">Tech Stack</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+<style scoped>
+  header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    padding: 1rem 2rem;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    box-shadow: 0 8px 8px -4px rgba(255, 255, 255, 0.2);
+    font-family: 'Share Tech Mono', monospace;
+    position: relative;
+    z-index: 10;
+  }
+
+  @media (min-width: 768px) {
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 60px;
+      padding: 1rem 4rem;
+      background-color: var(--accent-color);
+      color: var(--text-color);
+      box-shadow: 0 8px 8px -4px rgba(255, 255, 255, 0.2);
+      font-family: 'Share Tech Mono', monospace;
+      position: relative;
+      z-index: 10;
+    }
+  }
+
+  header a {
+    font-size: 1.2rem;
+    font-weight: 400;
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--secondary-text-color);
+    text-decoration: none;
+    margin-right: 20px;
+  }
+  header a:hover {
+    color: var(--primary-color);
+  }
+  header .logo {
+    display: flex;
+    align-items: center;
+    background-color: var(--secondary-text-color);
+    border-radius: 50%;
+  }
+  header .logo:hover {
+    background-color: var(--primary-color);
+    cursor: pointer;
+  }
+  .logo img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+</style>
