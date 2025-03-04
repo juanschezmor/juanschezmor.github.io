@@ -106,7 +106,7 @@ export const projects = [
     live_link: 'https://juanschezmor.github.io/AhorcadoEcologico/',
   },
   {
-    image: 'projects/casa-milan.png',
+    image: 'projects/logocasamilan.png',
     title: 'Casa Milán',
     description: 'Página web de una residencia de estudiantes en Sevilla que ofrece alojamiento con servicios incluidos.',
     bullet_points: [
