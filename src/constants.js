@@ -105,4 +105,16 @@ export const projects = [
     github_link: 'https://github.com/juanschezmor/AhorcadoEcologico',
     live_link: 'https://juanschezmor.github.io/AhorcadoEcologico/',
   },
+  {
+    image: 'projects/casa-milan.png',
+    title: 'Casa Milán',
+    description: 'Página web de una residencia de estudiantes en Sevilla que ofrece alojamiento con servicios incluidos.',
+    bullet_points: [
+      'Desarrollada con Next.js',
+      'Diseño responsive adaptado a dispositivos móviles y de escritorio',
+      'Despliegue realizado en Vercel',
+    ],
+    github_link: 'https://github.com/juanschezmor/casa-milan', // Reemplaza con el enlace real si está disponible
+    live_link: 'https://casa-milan.vercel.app/',
+  },
 ];
