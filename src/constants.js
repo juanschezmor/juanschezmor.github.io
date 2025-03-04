@@ -108,13 +108,13 @@ export const projects = [
   {
     image: 'projects/logocasamilan.png',
     title: 'Casa Milán',
-    description: 'Página web de una residencia de estudiantes en Sevilla que ofrece alojamiento con servicios incluidos.',
+    description: 'Website for a student residence in Seville, offering accommodation with included services.',
     bullet_points: [
-      'Desarrollada con Next.js',
-      'Diseño responsive adaptado a dispositivos móviles y de escritorio',
-      'Despliegue realizado en Vercel',
+      'Built with Next.js',
+      'Responsive design for mobile and desktop',
+      'Deployed on Vercel',
     ],
-    github_link: 'https://github.com/juanschezmor/casa-milan', // Reemplaza con el enlace real si está disponible
+    github_link: 'https://github.com/juanschezmor/casa-milan', // Replace with the actual repo link if available
     live_link: 'https://casa-milan.vercel.app/',
   },
 ];
