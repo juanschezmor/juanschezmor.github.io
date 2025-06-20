@@ -42,6 +42,7 @@ function Contact() {
         setStatus("error");
       }
     } catch (err) {
+      console.error("Error submitting the form:", err);
       setStatus("error");
     }
   };
