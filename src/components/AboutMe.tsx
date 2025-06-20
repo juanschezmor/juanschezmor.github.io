@@ -29,24 +29,28 @@ function AboutMe() {
             </h2>
             <div className="space-y-6 text-lg font-mono text-[var(--secondary-text-color)]">
               <p>
-                🚀 My journey in tech started as a teenage obsession with code
-                and late-night projects. Now? It’s my passion and my profession.
+                🚀 My journey in tech began as a teenager, tinkering with code
+                and building small projects late at night. What started as a
+                hobby has grown into a real passion and profession.
               </p>
               <p>
-                🧠 I live for learning — every new technology is a new toy. I'm
-                quick to adapt, curious to explore, and always hungry for more.
+                🧠 I'm always eager to learn — every new technology feels like a
+                new opportunity. I adapt quickly, explore with curiosity, and
+                love facing new challenges.
               </p>
               <p>
-                🎓 I studied Software Development, diving into everything from
-                front-end glam to back-end wizardry.
+                🎓 I studied Software Development, gaining hands-on experience
+                with both front-end and back-end technologies.
               </p>
               <p>
-                🌍 I believe in building things that are both useful and
-                beautiful. Code is my craft, and I love sharing it.
+                🌍 I believe in creating things that are both functional and
+                thoughtfully designed. I’m especially excited about working in
+                international environments — not only to grow professionally,
+                but also to learn from different cultures and perspectives.
               </p>
               <p className="mini-text italic">
-                🌱 Bonus fact: I’m a plant daddy. You’ll spot some of my leafy
-                friends across this site — don’t be shy, say hi 🪴
+                🌱 Bonus fact: I'm a plant lover. You might notice some of my
+                green friends hiding around the site — feel free to say hi 🪴
               </p>
             </div>
           </motion.div>
