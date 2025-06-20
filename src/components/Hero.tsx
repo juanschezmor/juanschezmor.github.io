@@ -82,7 +82,7 @@ const Hero = () => {
               </a>
               <a
                 className="btn-primary mb-4"
-                href="../assets/Juan-Sanchez-Moreno-CV.pdf"
+                href="../assets/Juan-Sánchez-Moreno-CV.pdf"
                 download="Juan_Sanchez_CV.pdf"
               >
                 Download CV
