@@ -1,0 +1,49 @@
+.project {
+  background-color: var(--accent-color);
+  padding: 25px;
+  height: 80%;
+  width: 90%;
+  border-radius: 10px;
+}
+.project img {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+}
+.project li {
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--secondary-text-color);
+}
+.project .project-url {
+  width: 20%;
+  text-decoration: none;
+  color: var(--secondary-text-color);
+}
+.links i {
+  padding: 20px;
+  font-size: 2rem;
+  color: var(--secondary-text-color);
+}
+.links i:hover {
+  color: var(--primary-color);
+}
+.project .links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+.links div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 10px;
+}
+@media screen and (max-width: 768px) {
+  .project {
+    height: 100%;
+  }
+}

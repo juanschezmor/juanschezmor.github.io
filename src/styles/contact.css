@@ -1,0 +1,131 @@
+.contact {
+  background-color: var(--secondary-text-color);
+  width: 100%;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 40px;
+}
+.contact label,
+.contact p,
+.contact h1,
+.contact h2,
+.contact h3,
+.contact h4,
+.contact h5,
+.contact h6 {
+  font-size: 1.2rem;
+  font-family: "Share Tech Mono", monospace;
+  font-weight: 800;
+}
+
+.contact .form-container {
+  background: rgba(255, 255, 255, 1);
+  width: 100%;
+  max-width: 850px;
+  padding: 50px;
+  margin: 0 auto;
+  position: relative;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15);
+}
+.contact .form-container::before {
+  content: "";
+  width: 90%;
+  height: calc(100% + 60px);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  position: absolute;
+  top: -30px;
+  background: var(--accent-color);
+  z-index: -1;
+  opacity: 0.8;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15);
+}
+
+.contact .form-content {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--accent-color);
+  border-radius: 10px;
+  padding: 20px;
+}
+.form-group {
+  margin-bottom: 25px;
+}
+.form-group > label {
+  display: block;
+  font-size: 18px;
+  color: #000;
+}
+.custom-control-label {
+  color: #000;
+  font-size: 16px;
+}
+.form-control {
+  height: 50px;
+  background: #ecf0f4;
+  border-color: transparent;
+  padding: 0 15px;
+  font-size: 16px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.form-control:focus {
+  border-color: #00bcd9;
+  -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+textarea.form-control {
+  width: 100%;
+  height: 160px;
+  padding-top: 15px;
+  resize: none;
+}
+
+.btn {
+  padding: 0.657rem 0.75rem;
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  font-family: "Share Tech Mono", monospace;
+}
+
+@media screen and (max-width: 768px) {
+  .form-container #survey-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .form-container .form-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

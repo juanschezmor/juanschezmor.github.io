@@ -1,0 +1,66 @@
+.about-me {
+  background-color: var(--secondary-text-color);
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+@media screen and (min-width: 768px) {
+  .home {
+    height: calc(100vh - var(--header-height));
+  }
+}
+
+.about-me h1,
+.about-me h2,
+.about-me h3 {
+  font-family: "Share Tech Mono", monospace;
+  font-weight: 800;
+  color: var(--secondary-text-color);
+  text-align: start;
+}
+.about-me p {
+  color: var(--secondary-text-color);
+  font-size: 1.2rem;
+  font-family: "Share Tech Mono", monospace;
+  font-weight: 400;
+  text-align: start;
+}
+.about-me .bio {
+  background-color: var(--accent-color);
+  color: var(--secondary-text-color);
+  padding: 20px;
+  border-radius: 10px;
+}
+.title {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-align: start;
+}
+.about-me .mini-text {
+  color: var(--secondary-text-color);
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-align: start;
+}
+.terminal-and-plant .plant {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  bottom: 60px; /* Ajustar según necesites para que esté detrás */
+  left: 80px; /* Ajustar según necesites para que esté detrás */
+  z-index: -1;
+}
+.terminal-and-plant {
+  position: relative;
+  display: inline-block;
+  z-index: 2;
+}

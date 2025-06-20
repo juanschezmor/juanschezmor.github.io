@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap");
+@import url("@fortawesome/fontawesome-free/css/all.min.css");
+@import "tailwindcss";
+
+/* Variables CSS personalizadas */
+:root {
+  --primary-color: red; /* Bittersweet */
+  --text-color: #3a3335ff; /* Jet */
+  --accent-color: #1f1d2e; /* Raspberry */
+  --background-color: #747483; /* Papaya Whip */
+  --accent-color2: #747c7c;
+  --secondary-text-color: #e8f1f9; /* Ash Gray */
+
+  --header-height: calc(20px + 4rem);
+  --font-mono: "Share Tech Mono", monospace;
+}
+
+html {
+  font-family: Share Tech Mono, system-ui, sans-serif;
+  background: var(--accent-color);
+  background-size: 224px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--text-color);
+}
+
+code {
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+    Bitstream Vera Sans Mono, Courier New, monospace;
+}
+
+.btn-primary {
+  font-family: "Share Tech Mono", monospace;
+  font-weight: 400;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  background-color: var(--accent-color);
+  color: var(--secondary-text-color);
+  text-decoration: none;
+  padding: 10px 20px;
+  border: 2px solid var(--primary-color);
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-color);
+  color: var(--secondary-text-color);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
