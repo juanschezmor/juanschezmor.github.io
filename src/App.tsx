@@ -5,7 +5,8 @@ import Projects from "./components/Projects";
 import TechStack from "./components/TechStack";
 import Contact from "./components/Contact";
 import WorkExperience from "./components/Experience";
-
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 function App() {
   return (
     <div>
@@ -15,6 +16,7 @@ function App() {
       <TechStack />
       <Projects />
       <Contact />
+      <ToastContainer />
     </div>
   );
 }

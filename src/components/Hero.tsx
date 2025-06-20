@@ -5,6 +5,8 @@ import heroImage from "../assets/hero-image.png";
 import plant1 from "../assets/plant1.svg";
 import Socials from "./Socials";
 import { TypeAnimation } from "react-type-animation";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Hero = () => {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 });
@@ -84,9 +86,21 @@ const Hero = () => {
                 className="btn-primary mb-4"
                 href="/Juan-Sanchez-Moreno-CV.pdf"
                 download="Juan_Sanchez_CV.pdf"
+                onClick={() =>
+                  toast.success("CV downloaded successfully!", {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  })
+                }
               >
                 Download CV
               </a>
+
               <img
                 src={plant1}
                 alt="Plant 1"

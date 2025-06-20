@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../styles/contact.css";
+import { toast } from "react-toastify";
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -38,12 +39,31 @@ function Contact() {
       if (response.ok) {
         setStatus("success");
         setFormData({ name: "", email: "", company: "", comment: "" });
+        toast.success("Message sent successfully!", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       } else {
         setStatus("error");
+        toast.error("Failed to send your message. Please try again.", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       }
     } catch (err) {
       console.error("Error submitting the form:", err);
       setStatus("error");
+      toast.error("An unexpected error occurred. Please try again.");
     }
   };
 
@@ -134,17 +154,6 @@ function Contact() {
                 {status === "sending" ? "Sending..." : "Send"}
               </button>
             </div>
-
-            {status === "success" && (
-              <p className="text-green-600 text-sm mt-2">
-                Message sent successfully! 💌
-              </p>
-            )}
-            {status === "error" && (
-              <p className="text-red-600 text-sm mt-2">
-                Oops! Something went wrong. Try again.
-              </p>
-            )}
           </form>
         </div>
       </div>
