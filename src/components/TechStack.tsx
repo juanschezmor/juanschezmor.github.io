@@ -1,90 +1,83 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { skills, skillsCategories } from "../constants";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { useTranslation } from "react-i18next";
 import "../styles/tech-stack.css";
-
-const logos = import.meta.glob("../assets/logos/*.png", {
-  eager: true,
-  as: "url",
-});
-
-const getLogoUrl = (skill: string) => {
-  return logos[`../assets/logos/${skill}.png`];
-};
+import { useSkills } from "../hooks/useSkills";
+import { resolveSkillVisual } from "../skill-icons";
 
 function TechStack() {
   const [activeCategory, setActiveCategory] = useState("All");
-  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.15 });
+  const { skills: dynamicSkills } = useSkills();
+  const { t } = useTranslation();
+  const availableSkills = dynamicSkills.length > 0 ? dynamicSkills : skills;
 
   const handleChangeCategory = (category: string) => {
     setActiveCategory(category);
   };
 
-  const handleMouseEnter = (skill: string) => {
-    setHoveredSkill(skill);
-  };
-
-  const handleMouseLeave = () => {
-    setHoveredSkill(null);
-  };
-
-  useEffect(() => {
-    console.log("Active Category: ", activeCategory);
-  }, [activeCategory]);
-
   return (
     <article id="tech-stack" className="tech-stack" ref={ref}>
-      <div className="title-container">
-        <h3 className="title">Tech Stack</h3>
-      </div>
-
-      <div className="tech-container">
-        <div className="categories-container">
-          {skillsCategories.map((category) => (
-            <button
-              key={category}
-              onClick={() => handleChangeCategory(category)}
-              className={`category ${
-                activeCategory === category
-                  ? "active-category"
-                  : "inactive-category"
-              }`}
-            >
-              {category}
-            </button>
-          ))}
+      <div className="section-shell">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">{t("stack.eyebrow")}</p>
+            <h2 className="title">{t("stack.title")}</h2>
+          </div>
+          <p className="section-copy">{t("stack.copy")}</p>
         </div>
 
-        <div className="skills-container">
-          {skills
-            .filter(
-              (skill) =>
-                activeCategory === "All" || skill.category === activeCategory
-            )
-            .map((skill, index) => (
-              <motion.button
-                key={skill.skill}
-                onMouseEnter={() => handleMouseEnter(skill.skill)}
-                onMouseLeave={handleMouseLeave}
-                className="skill"
-                aria-label={skill.skill}
-                initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: index * 0.05, duration: 0.4 }}
-                whileHover={{ scale: 1.15 }}
+        <div className="tech-container">
+          <div className="categories-container">
+            {skillsCategories.map((category) => (
+              <button
+                key={category}
+                onClick={() => handleChangeCategory(category)}
+                className={`category ${
+                  activeCategory === category
+                    ? "active-category"
+                    : "inactive-category"
+                }`}
               >
-                <img
-                  className="logo"
-                  src={getLogoUrl(skill.skill)}
-                  alt={skill.skill}
-                />
-                {hoveredSkill === skill.skill && (
-                  <span className="skill-alt">{skill.skill}</span>
-                )}
-              </motion.button>
+                {t(`stack.categories.${category.toLowerCase()}`)}
+              </button>
             ))}
+          </div>
+
+          <div className="skills-container">
+            {availableSkills
+              .filter(
+                (skill) =>
+                  activeCategory === "All" || skill.category === activeCategory
+              )
+              .map((skill, index) => {
+                const visual = resolveSkillVisual(skill.skill);
+                const Icon = visual.icon;
+
+                return (
+                  <motion.button
+                    key={skill.id}
+                    className="skill"
+                    aria-label={skill.skill}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ delay: index * 0.05, duration: 0.4 }}
+                    whileHover={{ scale: 1.06 }}
+                  >
+                    <span
+                      className="skill-icon"
+                      style={{ color: visual.color }}
+                      aria-hidden="true"
+                    >
+                      <Icon />
+                    </span>
+                    <span className="skill-name">{skill.skill}</span>
+                  </motion.button>
+                );
+              })}
+          </div>
         </div>
       </div>
     </article>

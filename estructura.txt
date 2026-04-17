@@ -1,0 +1,80 @@
+src/
+├── App.css
+├── App.tsx
+├── assets
+│   ├── hero-image.png
+│   ├── logo.png
+│   ├── logos
+│   │   ├── Angular.png
+│   │   ├── Bootstrap.png
+│   │   ├── CSS.png
+│   │   ├── Docker.png
+│   │   ├── Flask.png
+│   │   ├── GitHub.png
+│   │   ├── Google Firebase.png
+│   │   ├── HTML.png
+│   │   ├── Java.png
+│   │   ├── JavaScript.png
+│   │   ├── Jetpack Compose.png
+│   │   ├── JIRA.jpg
+│   │   ├── JIRA.png
+│   │   ├── Kotlin.png
+│   │   ├── Python.png
+│   │   ├── ReactJS.png
+│   │   ├── Slack.png
+│   │   ├── SQL.png
+│   │   └── Tailwind.png
+│   ├── plant1.svg
+│   ├── plant2.svg
+│   ├── plant3.svg
+│   └── projects
+│       ├── ahorcado-icon.jpg
+│       ├── bubbly.png
+│       ├── hangman.jpeg
+│       ├── hive-challenges.png
+│       └── logocasamilan.png
+├── components
+│   ├── AboutMe.tsx
+│   ├── AdminSidebar.tsx
+│   ├── Contact.tsx
+│   ├── Experience.tsx
+│   ├── Footer.tsx
+│   ├── Header.tsx
+│   ├── Hero.tsx
+│   ├── Plant2.tsx
+│   ├── ProjectCard.tsx
+│   ├── Projects.tsx
+│   ├── Socials.tsx
+│   └── TechStack.tsx
+├── constants.ts
+├── icons
+│   ├── Github.tsx
+│   ├── Linkedin.tsx
+│   └── Mail.tsx
+├── images.ts
+├── index.css
+├── main.tsx
+├── pages
+│   ├── Admin
+│   │   ├── Dashboard.tsx
+│   │   ├── Experiences.tsx
+│   │   ├── Projects.tsx
+│   │   └── Resume.tsx
+│   └── Home.tsx
+├── router.tsx
+├── styles
+│   ├── about-me.css
+│   ├── contact.css
+│   ├── experience.css
+│   ├── hero.css
+│   ├── projectcard.css
+│   ├── projects.css
+│   ├── socials.css
+│   ├── tech-stack.css
+│   └── terminal.css
+├── types
+│   └── Project.ts
+├── utils.ts
+└── vite-env.d.ts
+
+10 directories, 68 files

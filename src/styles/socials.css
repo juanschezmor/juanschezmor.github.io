@@ -1,20 +1,28 @@
 .socials {
   display: flex;
-  gap: 1.5rem;
-  padding: 1rem 0;
+  gap: 0.9rem;
+  padding: 1.25rem 0 0;
 }
 
 .socials a {
   color: var(--secondary-text-color);
-  transition: transform 0.2s ease, color 0.2s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease,
+    border-color 0.3s ease,
+    background-color 0.3s ease;
   display: flex;
+  align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  padding: 0.5rem;
+  border-radius: 999px;
+  padding: 0.75rem;
+  border: 1px solid var(--social-border);
+  background: var(--social-surface);
 }
 
 .socials a:hover {
   color: var(--primary-color);
-  transform: scale(1.2);
-  box-shadow: 0 0 10px var(--primary-color);
+  transform: translateY(-2px);
+  border-color: rgba(255, 143, 92, 0.55);
+  background: rgba(255, 143, 92, 0.08);
 }

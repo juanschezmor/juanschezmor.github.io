@@ -1,50 +1,89 @@
 import logo from "../assets/logo.png";
+import { useTranslation } from "react-i18next";
 
-const Header = () => {
+interface HeaderProps {
+  theme: "dark" | "light";
+  onToggleTheme: () => void;
+}
+
+const Header = ({ theme, onToggleTheme }: HeaderProps) => {
+  const { t, i18n } = useTranslation();
+  const language = i18n.resolvedLanguage === "es" ? "es" : "en";
+
   return (
-    <header className="md:sticky top-0 flex flex-col md:flex-row justify-between items-center h-16 px-6 md:px-16 bg-[var(--accent-color)] text-[var(--text-color)] shadow-[0_8px_8px_-4px_rgba(255,255,255,0.2)] font-mono z-10 relative">
-      {/* Logo */}
-      <div className="flex items-center bg-[var(--secondary-text-color)] rounded-full p-2 hover:bg-[var(--primary-color)] cursor-pointer transition-colors">
-        <img
-          src={logo}
-          alt="logo"
-          className="w-12 h-12 rounded-full object-cover"
-        />
-      </div>
+    <header className="site-header">
+      <div className="site-header__inner">
+        <a href="/" className="site-brand">
+          <img
+            src={logo}
+            alt="Juan Sánchez Moreno logo"
+            className="site-brand__logo"
+          />
+          <div className="site-brand__copy">
+            <span>Juan Sánchez Moreno</span>
+            <small>{t("header.role")}</small>
+          </div>
+        </a>
 
-      {/* Nav */}
-      <nav className="hidden md:flex gap-5 mt-4 md:mt-0">
-        <a
-          href="/"
-          className="text-[var(--secondary-text-color)] text-lg hover:text-[var(--primary-color)] transition-colors"
-        >
-          Home
-        </a>
-        <a
-          href="#about-me"
-          className="text-[var(--secondary-text-color)] text-lg hover:text-[var(--primary-color)] transition-colors"
-        >
-          About
-        </a>
-        <a
-          href="#tech-stack"
-          className="text-[var(--secondary-text-color)] text-lg hover:text-[var(--primary-color)] transition-colors"
-        >
-          Tech Stack
-        </a>
-        <a
-          href="#projects"
-          className="text-[var(--secondary-text-color)] text-lg hover:text-[var(--primary-color)] transition-colors"
-        >
-          Projects
-        </a>
-        <a
-          href="#contact"
-          className="text-[var(--secondary-text-color)] text-lg hover:text-[var(--primary-color)] transition-colors"
-        >
-          Contact
-        </a>
-      </nav>
+        <nav className="site-nav">
+          <a href="#activity">{t("header.nav.activity")}</a>
+          <a href="#about-me">{t("header.nav.about")}</a>
+          <a href="#experience">{t("header.nav.experience")}</a>
+          <a href="#projects">{t("header.nav.projects")}</a>
+          <a href="#tech-stack">{t("header.nav.stack")}</a>
+          <a href="#contact">{t("header.nav.contact")}</a>
+        </nav>
+
+        <div className="site-header__controls">
+          <a
+            href="/Juan-Sanchez-Moreno-CV.pdf"
+            download="Juan_Sanchez_CV.pdf"
+            className="site-header__cta"
+          >
+            CV
+          </a>
+          <button
+            type="button"
+            className="language-toggle"
+            onClick={() => i18n.changeLanguage(language === "en" ? "es" : "en")}
+            aria-label={t("header.languageLabel")}
+          >
+            <span className="language-toggle__track" aria-hidden="true">
+              <span className="language-toggle__flag language-toggle__flag--left">
+                🇬🇧
+              </span>
+              <span className="language-toggle__flag language-toggle__flag--right">
+                🇪🇸
+              </span>
+              <span
+                className={`language-toggle__thumb ${
+                  language === "es" ? "language-toggle__thumb--es" : ""
+                }`}
+              >
+                <span className="language-toggle__thumb-flag">
+                  {language === "es" ? "🇪🇸" : "🇬🇧"}
+                </span>
+              </span>
+            </span>
+          </button>
+          <button
+            type="button"
+            className="theme-toggle"
+            onClick={onToggleTheme}
+            aria-label={
+              theme === "dark"
+                ? t("header.themeToLight")
+                : t("header.themeToDark")
+            }
+          >
+            <span className="theme-toggle__track" aria-hidden="true">
+              <span className="theme-toggle__icon">
+                {theme === "dark" ? "🌙" : "☀️"}
+              </span>
+            </span>
+          </button>
+        </div>
+      </div>
     </header>
   );
 };
