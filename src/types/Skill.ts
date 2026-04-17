@@ -5,9 +5,3 @@ export type SkillItem = {
   skill: string;
   category: SkillCategory;
 };
-
-export type DynamoSkillItem = {
-  id: { S: string };
-  skill: { S: string };
-  category: { S: SkillCategory };
-};

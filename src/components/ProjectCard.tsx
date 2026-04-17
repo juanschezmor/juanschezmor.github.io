@@ -41,7 +41,13 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
   return (
     <div className="project panel-card">
       <div className="project-media">
-        <img className="project-image" src={project.image} alt={title} />
+        {project.image ? (
+          <img className="project-image" src={project.image} alt={title} />
+        ) : (
+          <div className="project-image-placeholder" aria-hidden="true">
+            <span>{title}</span>
+          </div>
+        )}
       </div>
 
       <div className="project-copy">

@@ -1,4 +1,3 @@
-// src/pages/Admin/ProjectContext.tsx
 import {
   createContext,
   useCallback,
@@ -6,28 +5,19 @@ import {
   useMemo,
   useState,
 } from "react";
-import { API_BASE_URL } from "../../config/api";
-import type { Project } from "../../types/Project";
-import { parseDynamoProjects } from "../../utils";
+import {
+  createProject as createProjectRequest,
+  deleteProject as deleteProjectRequest,
+  listProjects,
+  type ProjectPayload,
+  updateProject as updateProjectRequest,
+} from "../../api/projects";
+import {
+  getFetchFallbackMessage,
+  getMutationErrorMessage,
+} from "../../api/client";
 import { projects as fallbackProjects } from "../../constants";
-
-interface ProjectPayload {
-  title: {
-    en: string;
-    es: string;
-  };
-  description: {
-    en: string;
-    es: string;
-  };
-  bullet_points: {
-    en: string[];
-    es: string[];
-  };
-  github_link?: string;
-  live_link?: string;
-  image?: string;
-}
+import type { Project } from "../../types/Project";
 
 interface ProjectContextType {
   projects: Project[];
@@ -49,25 +39,19 @@ export const ProjectProvider = ({
   children: React.ReactNode;
 }) => {
   const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const fetchProjects = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
-      const res = await fetch(`${API_BASE_URL}/projects`);
-      if (!res.ok) {
-        throw new Error(`Request failed with status ${res.status}`);
-      }
-      const json = await res.json();
-      const data = typeof json.body === "string" ? JSON.parse(json.body) : json;
-      const parsedProjects = parseDynamoProjects(data);
-      setProjects(parsedProjects.length > 0 ? parsedProjects : fallbackProjects);
+      const items = await listProjects();
+      setProjects(items.length > 0 ? items : fallbackProjects);
     } catch (err) {
       console.error("Error fetching projects:", err);
       setProjects(fallbackProjects);
-      setError("AWS API unavailable. Showing local projects.");
+      setError(getFetchFallbackMessage("projects", err));
     } finally {
       setLoading(false);
     }
@@ -77,22 +61,11 @@ export const ProjectProvider = ({
     async (input: ProjectPayload) => {
       try {
         setError(null);
-        const response = await fetch(`${API_BASE_URL}/projects`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(input),
-        });
-
-        if (!response.ok) {
-          throw new Error(`Request failed with status ${response.status}`);
-        }
-
+        await createProjectRequest(input);
         await fetchProjects();
       } catch (err) {
         console.error("Failed to create project", err);
-        setError("Failed to create project.");
+        setError(getMutationErrorMessage("create project", err));
         throw err;
       }
     },
@@ -103,41 +76,30 @@ export const ProjectProvider = ({
     async (id: string, input: ProjectPayload) => {
       try {
         setError(null);
-        const response = await fetch(`${API_BASE_URL}/projects/${id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(input),
-        });
-
-        if (!response.ok) {
-          throw new Error(`Request failed with status ${response.status}`);
-        }
-
+        await updateProjectRequest(id, input);
         await fetchProjects();
       } catch (err) {
         console.error("Failed to update project", err);
-        setError("Failed to update project.");
+        setError(getMutationErrorMessage("update project", err));
         throw err;
       }
     },
     [fetchProjects]
   );
 
-  const deleteProject = async (id: string) => {
+  const deleteProject = useCallback(async (id: string) => {
     try {
       setError(null);
-      await fetch(`${API_BASE_URL}/projects/${id}`, { method: "DELETE" });
-      setProjects((prev) => prev.filter((p) => p.id !== id));
+      await deleteProjectRequest(id);
+      setProjects((current) => current.filter((project) => project.id !== id));
     } catch (err) {
       console.error("Failed to delete project", err);
-      setError("Failed to delete project.");
+      setError(getMutationErrorMessage("delete project", err));
     }
-  };
+  }, []);
 
   useEffect(() => {
-    fetchProjects();
+    void fetchProjects();
   }, [fetchProjects]);
 
   const contextValue = useMemo(
@@ -150,7 +112,15 @@ export const ProjectProvider = ({
       updateProject,
       deleteProject,
     }),
-    [projects, loading, error, fetchProjects, createProject, updateProject]
+    [
+      projects,
+      loading,
+      error,
+      fetchProjects,
+      createProject,
+      updateProject,
+      deleteProject,
+    ]
   );
 
   return (

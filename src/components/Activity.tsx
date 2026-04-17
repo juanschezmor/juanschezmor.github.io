@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useTranslation } from "react-i18next";
+import { formatActivityDateLabel } from "../formatters/activityDates";
 import { useActivities } from "../hooks/useActivities";
 
 function Activity() {
@@ -36,6 +37,12 @@ function Activity() {
               : isLocalItem
                 ? t(`activity.items.${item.id}.description`)
                 : item.description;
+            const formattedDate = formatActivityDateLabel({
+              start_date: item.start_date,
+              end_date: item.end_date,
+              fallbackDate: item.date,
+              locale: language === "es" ? "es-ES" : "en-US",
+            });
 
             return (
               <motion.article
@@ -47,7 +54,7 @@ function Activity() {
               >
                 <div className="activity-item__meta">
                   <span className="activity-item__dot" aria-hidden="true" />
-                  <p className="activity-item__date">{item.date}</p>
+                  <p className="activity-item__date">{formattedDate}</p>
                 </div>
 
                 <div className="activity-bubble">

@@ -23,6 +23,28 @@
   object-fit: contain;
 }
 
+.project-image-placeholder {
+  width: min(320px, 100%);
+  min-height: 180px;
+  border-radius: 18px;
+  border: 1px dashed rgba(11, 18, 32, 0.16);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.3)),
+    rgba(11, 18, 32, 0.04);
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.project-image-placeholder span {
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  color: rgba(11, 18, 32, 0.55);
+}
+
 .project-copy {
   display: grid;
   gap: 1rem;

@@ -5,29 +5,19 @@ import {
   useMemo,
   useState,
 } from "react";
-import { API_BASE_URL } from "../../config/api";
+import {
+  createExperience as createExperienceRequest,
+  deleteExperience as deleteExperienceRequest,
+  listExperiences,
+  type ExperiencePayload,
+  updateExperience as updateExperienceRequest,
+} from "../../api/experiences";
+import {
+  getFetchFallbackMessage,
+  getMutationErrorMessage,
+} from "../../api/client";
 import { experiences as fallbackExperiences } from "../../constants";
 import type { ExperienceItem } from "../../types/Experience";
-import { parseDynamoExperiences } from "../../utils";
-
-interface ExperiencePayload {
-  company: string;
-  period: {
-    en: string;
-    es: string;
-  };
-  roles: Array<{
-    id: number;
-    title: {
-      en: string;
-      es: string;
-    };
-    description: {
-      en: string[];
-      es: string[];
-    };
-  }>;
-}
 
 interface ExperienceContextType {
   experiences: ExperienceItem[];
@@ -56,20 +46,12 @@ export const ExperienceProvider = ({
     try {
       setLoading(true);
       setError(null);
-
-      const response = await fetch(`${API_BASE_URL}/experiences`);
-      if (!response.ok) {
-        throw new Error(`Request failed with status ${response.status}`);
-      }
-
-      const json = await response.json();
-      const data = typeof json.body === "string" ? JSON.parse(json.body) : json;
-      const parsed = parseDynamoExperiences(data);
-      setExperiences(parsed.length > 0 ? parsed : fallbackExperiences);
+      const items = await listExperiences();
+      setExperiences(items.length > 0 ? items : fallbackExperiences);
     } catch (err) {
       console.error("Error fetching experiences:", err);
       setExperiences(fallbackExperiences);
-      setError("AWS API unavailable. Showing local experience content.");
+      setError(getFetchFallbackMessage("experience content", err));
     } finally {
       setLoading(false);
     }
@@ -79,22 +61,11 @@ export const ExperienceProvider = ({
     async (input: ExperiencePayload) => {
       try {
         setError(null);
-        const response = await fetch(`${API_BASE_URL}/experiences`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(input),
-        });
-
-        if (!response.ok) {
-          throw new Error(`Request failed with status ${response.status}`);
-        }
-
+        await createExperienceRequest(input);
         await fetchExperiences();
       } catch (err) {
         console.error("Failed to create experience", err);
-        setError("Failed to create experience.");
+        setError(getMutationErrorMessage("create experience", err));
         throw err;
       }
     },
@@ -105,22 +76,11 @@ export const ExperienceProvider = ({
     async (id: number, input: ExperiencePayload) => {
       try {
         setError(null);
-        const response = await fetch(`${API_BASE_URL}/experiences/${id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(input),
-        });
-
-        if (!response.ok) {
-          throw new Error(`Request failed with status ${response.status}`);
-        }
-
+        await updateExperienceRequest(id, input);
         await fetchExperiences();
       } catch (err) {
         console.error("Failed to update experience", err);
-        setError("Failed to update experience.");
+        setError(getMutationErrorMessage("update experience", err));
         throw err;
       }
     },
@@ -130,24 +90,18 @@ export const ExperienceProvider = ({
   const deleteExperience = useCallback(async (id: number) => {
     try {
       setError(null);
-      const response = await fetch(`${API_BASE_URL}/experiences/${id}`, {
-        method: "DELETE",
-      });
-
-      if (!response.ok) {
-        throw new Error(`Request failed with status ${response.status}`);
-      }
-
-      setExperiences((prev) => prev.filter((experience) => experience.id !== id));
+      await deleteExperienceRequest(id);
+      setExperiences((current) =>
+        current.filter((experience) => experience.id !== id)
+      );
     } catch (err) {
       console.error("Failed to delete experience", err);
-      setError("Failed to delete experience.");
-      throw err;
+      setError(getMutationErrorMessage("delete experience", err));
     }
   }, []);
 
   useEffect(() => {
-    fetchExperiences();
+    void fetchExperiences();
   }, [fetchExperiences]);
 
   const value = useMemo(

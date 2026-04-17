@@ -1,19 +1,11 @@
-export type LocalizedExperienceText = {
-  en: string;
-  es: string;
-};
-
-export type LocalizedExperienceTextList = {
-  en: string[];
-  es: string[];
-};
+import type { LocalizedText, LocalizedTextList } from "./localized";
 
 export type ExperienceRole = {
   id: number;
   title: string;
   description: string[];
-  title_i18n?: LocalizedExperienceText;
-  description_i18n?: LocalizedExperienceTextList;
+  title_i18n?: LocalizedText;
+  description_i18n?: LocalizedTextList;
 };
 
 export type ExperienceItem = {
@@ -21,29 +13,5 @@ export type ExperienceItem = {
   company: string;
   period: string;
   roles: ExperienceRole[];
-  period_i18n?: LocalizedExperienceText;
-};
-
-export type DynamoExperienceRole = {
-  M: {
-    id: { N: string };
-    title:
-      | { S: string }
-      | { M: { en?: { S: string }; es?: { S: string } } };
-    description:
-      | { L: { S: string }[] }
-      | {
-          M: {
-            en?: { L: { S: string }[] };
-            es?: { L: { S: string }[] };
-          };
-        };
-  };
-};
-
-export type DynamoExperienceItem = {
-  id: { N: string } | { S: string };
-  company: { S: string };
-  period: { S: string } | { M: { en?: { S: string }; es?: { S: string } } };
-  roles: { L: DynamoExperienceRole[] };
+  period_i18n?: LocalizedText;
 };

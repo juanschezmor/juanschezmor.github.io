@@ -2,12 +2,9 @@ import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import AppRouter from "./router";
 import "./App.css";
-import { ActivityProvider } from "./context/Activity/ActivityContext";
-import { ExperienceProvider } from "./context/Experience/ExperienceContext";
-import { ProjectProvider } from "./context/Project/ProjectContext";
-import { SkillProvider } from "./context/Skill/SkillContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import AppProviders from "./components/AppProviders";
 
 type Theme = "dark" | "light";
 
@@ -27,27 +24,21 @@ function App() {
   }, [theme]);
 
   return (
-    <ProjectProvider>
-      <ActivityProvider>
-        <ExperienceProvider>
-          <SkillProvider>
-            <div className="app-shell">
-              <Header
-                theme={theme}
-                onToggleTheme={() =>
-                  setTheme((currentTheme) =>
-                    currentTheme === "dark" ? "light" : "dark"
-                  )
-                }
-              />
-              <AppRouter />
-              <Footer />
-              <ToastContainer />
-            </div>
-          </SkillProvider>
-        </ExperienceProvider>
-      </ActivityProvider>
-    </ProjectProvider>
+    <AppProviders>
+      <div className="app-shell">
+        <Header
+          theme={theme}
+          onToggleTheme={() =>
+            setTheme((currentTheme) =>
+              currentTheme === "dark" ? "light" : "dark"
+            )
+          }
+        />
+        <AppRouter />
+        <Footer />
+        <ToastContainer />
+      </div>
+    </AppProviders>
   );
 }
 

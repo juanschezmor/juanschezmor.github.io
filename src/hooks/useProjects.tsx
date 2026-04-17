@@ -1,9 +1,5 @@
-import { useContext } from "react";
 import { ProjectContext } from "../context/Project/ProjectContext";
+import { useRequiredContext } from "./useRequiredContext";
 
-export const useProjects = () => {
-  const context = useContext(ProjectContext);
-  if (!context)
-    throw new Error("useProjects must be used within a ProjectProvider");
-  return context;
-};
+export const useProjects = () =>
+  useRequiredContext(ProjectContext, "useProjects");

@@ -5,22 +5,25 @@ import {
   useMemo,
   useState,
 } from "react";
-import { API_BASE_URL } from "../../config/api";
+import {
+  createSkill as createSkillRequest,
+  deleteSkill as deleteSkillRequest,
+  listSkills,
+  type SkillPayload,
+} from "../../api/skills";
+import {
+  getFetchFallbackMessage,
+  getMutationErrorMessage,
+} from "../../api/client";
 import { skills as fallbackSkills } from "../../constants";
-import type { SkillCategory, SkillItem } from "../../types/Skill";
-import { parseDynamoSkills } from "../../utils";
-
-interface CreateSkillInput {
-  skill: string;
-  category: SkillCategory;
-}
+import type { SkillItem } from "../../types/Skill";
 
 interface SkillContextType {
   skills: SkillItem[];
   loading: boolean;
   error: string | null;
   fetchSkills: () => Promise<void>;
-  createSkill: (input: CreateSkillInput) => Promise<void>;
+  createSkill: (input: SkillPayload) => Promise<void>;
   deleteSkill: (id: string) => Promise<void>;
 }
 
@@ -37,39 +40,26 @@ export const SkillProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       setLoading(true);
       setError(null);
-      const res = await fetch(`${API_BASE_URL}/skills`);
-      if (!res.ok) {
-        throw new Error(`Request failed with status ${res.status}`);
-      }
-      const json = await res.json();
-      const data = typeof json.body === "string" ? JSON.parse(json.body) : json;
-      const parsedSkills = parseDynamoSkills(data);
-      setSkills(parsedSkills.length > 0 ? parsedSkills : fallbackSkills);
+      const items = await listSkills();
+      setSkills(items.length > 0 ? items : fallbackSkills);
     } catch (err) {
       console.error("Error fetching skills:", err);
       setSkills(fallbackSkills);
-      setError("AWS API unavailable. Showing local skills.");
+      setError(getFetchFallbackMessage("skills", err));
     } finally {
       setLoading(false);
     }
   }, []);
 
   const createSkill = useCallback(
-    async (input: CreateSkillInput) => {
+    async (input: SkillPayload) => {
       try {
         setError(null);
-        const res = await fetch(`${API_BASE_URL}/skills`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(input),
-        });
-        if (!res.ok) {
-          throw new Error(`Request failed with status ${res.status}`);
-        }
+        await createSkillRequest(input);
         await fetchSkills();
       } catch (err) {
         console.error("Failed to create skill", err);
-        setError("Failed to create skill.");
+        setError(getMutationErrorMessage("create skill", err));
         throw err;
       }
     },
@@ -79,22 +69,16 @@ export const SkillProvider = ({ children }: { children: React.ReactNode }) => {
   const deleteSkill = useCallback(async (id: string) => {
     try {
       setError(null);
-      const res = await fetch(`${API_BASE_URL}/skills/${id}`, {
-        method: "DELETE",
-      });
-      if (!res.ok) {
-        throw new Error(`Request failed with status ${res.status}`);
-      }
-      setSkills((prev) => prev.filter((skill) => skill.id !== id));
+      await deleteSkillRequest(id);
+      setSkills((current) => current.filter((skill) => skill.id !== id));
     } catch (err) {
       console.error("Failed to delete skill", err);
-      setError("Failed to delete skill.");
-      throw err;
+      setError(getMutationErrorMessage("delete skill", err));
     }
   }, []);
 
   useEffect(() => {
-    fetchSkills();
+    void fetchSkills();
   }, [fetchSkills]);
 
   const value = useMemo(
@@ -109,7 +93,5 @@ export const SkillProvider = ({ children }: { children: React.ReactNode }) => {
     [skills, loading, error, fetchSkills, createSkill, deleteSkill]
   );
 
-  return (
-    <SkillContext.Provider value={value}>{children}</SkillContext.Provider>
-  );
+  return <SkillContext.Provider value={value}>{children}</SkillContext.Provider>;
 };

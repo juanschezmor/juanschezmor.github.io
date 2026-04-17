@@ -228,7 +228,7 @@ const resources = {
         toastUnexpected: "An unexpected error occurred. Please try again.",
       },
       footer: {
-        builtWith: "Built with React and TypeScript.",
+        builtWith: "Open to full-stack software opportunities.",
       },
     },
   },
@@ -454,7 +454,7 @@ const resources = {
         toastUnexpected: "Ha ocurrido un error inesperado. Inténtalo de nuevo.",
       },
       footer: {
-        builtWith: "Hecho con React y TypeScript.",
+        builtWith: "Abierto a oportunidades como desarrollador full-stack.",
       },
     },
   },

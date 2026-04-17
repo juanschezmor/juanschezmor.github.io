@@ -1,38 +1,39 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DeleteCommand } from "@aws-sdk/lib-dynamodb";
+import {
+  authErrorResponse,
+  isOptionsRequest,
+  jsonResponse,
+  optionsResponse,
+  requireAdminSession,
+} from "../_shared/admin-auth.mjs";
 
 const client = new DynamoDBClient({ region: process.env.AWS_REGION });
 const tableName = process.env.ACTIVITIES_TABLE ?? "Activities";
+const allowedMethods = "DELETE,OPTIONS";
 
 export const handler = async (event) => {
-  const id = event.pathParameters?.id;
-
-  if (!id) {
-    return {
-      statusCode: 400,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Allow-Methods": "DELETE,OPTIONS",
-      },
-      body: JSON.stringify({ message: "id is required." }),
-    };
+  if (isOptionsRequest(event)) {
+    return optionsResponse(allowedMethods);
   }
 
-  await client.send(
-    new DeleteCommand({
-      TableName: tableName,
-      Key: { id },
-    })
-  );
+  try {
+    requireAdminSession(event);
+    const id = event.pathParameters?.id;
 
-  return {
-    statusCode: 200,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "Content-Type",
-      "Access-Control-Allow-Methods": "DELETE,OPTIONS",
-    },
-    body: JSON.stringify({ success: true, id }),
-  };
+    if (!id) {
+      return jsonResponse(400, { message: "id is required." }, allowedMethods);
+    }
+
+    await client.send(
+      new DeleteCommand({
+        TableName: tableName,
+        Key: { id },
+      })
+    );
+
+    return jsonResponse(200, { success: true, id }, allowedMethods);
+  } catch (error) {
+    return authErrorResponse(error, allowedMethods, "Failed to delete activity.");
+  }
 };

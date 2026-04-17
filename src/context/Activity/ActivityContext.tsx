@@ -5,29 +5,25 @@ import {
   useMemo,
   useState,
 } from "react";
-import { API_BASE_URL } from "../../config/api";
+import {
+  createActivity as createActivityRequest,
+  deleteActivity as deleteActivityRequest,
+  listActivities,
+  type ActivityPayload,
+} from "../../api/activities";
+import {
+  getFetchFallbackMessage,
+  getMutationErrorMessage,
+} from "../../api/client";
 import { activities as fallbackActivities } from "../../constants";
 import type { ActivityItem } from "../../types/Activity";
-import { parseDynamoActivities } from "../../utils";
-
-interface CreateActivityInput {
-  date: string;
-  label: {
-    en: string;
-    es: string;
-  };
-  description: {
-    en: string;
-    es: string;
-  };
-}
 
 interface ActivityContextType {
   activities: ActivityItem[];
   loading: boolean;
   error: string | null;
   fetchActivities: () => Promise<void>;
-  createActivity: (input: CreateActivityInput) => Promise<void>;
+  createActivity: (input: ActivityPayload) => Promise<void>;
   deleteActivity: (id: string) => Promise<void>;
 }
 
@@ -48,47 +44,26 @@ export const ActivityProvider = ({
     try {
       setLoading(true);
       setError(null);
-
-      const res = await fetch(`${API_BASE_URL}/activities`);
-      if (!res.ok) {
-        throw new Error(`Request failed with status ${res.status}`);
-      }
-
-      const json = await res.json();
-      const data = typeof json.body === "string" ? JSON.parse(json.body) : json;
-      const parsedActivities = parseDynamoActivities(data);
-      setActivities(
-        parsedActivities.length > 0 ? parsedActivities : fallbackActivities
-      );
+      const items = await listActivities();
+      setActivities(items.length > 0 ? items : fallbackActivities);
     } catch (err) {
       console.error("Error fetching activities:", err);
       setActivities(fallbackActivities);
-      setError("AWS API unavailable. Showing local activity feed.");
+      setError(getFetchFallbackMessage("activity", err));
     } finally {
       setLoading(false);
     }
   }, []);
 
   const createActivity = useCallback(
-    async (input: CreateActivityInput) => {
+    async (input: ActivityPayload) => {
       try {
         setError(null);
-        const res = await fetch(`${API_BASE_URL}/activities`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(input),
-        });
-
-        if (!res.ok) {
-          throw new Error(`Request failed with status ${res.status}`);
-        }
-
+        await createActivityRequest(input);
         await fetchActivities();
       } catch (err) {
         console.error("Failed to create activity", err);
-        setError("Failed to create activity.");
+        setError(getMutationErrorMessage("create activity", err));
         throw err;
       }
     },
@@ -98,24 +73,18 @@ export const ActivityProvider = ({
   const deleteActivity = useCallback(async (id: string) => {
     try {
       setError(null);
-      const res = await fetch(`${API_BASE_URL}/activities/${id}`, {
-        method: "DELETE",
-      });
-
-      if (!res.ok) {
-        throw new Error(`Request failed with status ${res.status}`);
-      }
-
-      setActivities((prev) => prev.filter((activity) => activity.id !== id));
+      await deleteActivityRequest(id);
+      setActivities((current) =>
+        current.filter((activity) => activity.id !== id)
+      );
     } catch (err) {
       console.error("Failed to delete activity", err);
-      setError("Failed to delete activity.");
-      throw err;
+      setError(getMutationErrorMessage("delete activity", err));
     }
   }, []);
 
   useEffect(() => {
-    fetchActivities();
+    void fetchActivities();
   }, [fetchActivities]);
 
   const value = useMemo(

@@ -2,11 +2,11 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { downloadActiveResume } from "../api/resumes";
 import Github from "../icons/Github";
 import Linkedin from "../icons/Linkedin";
 import Mail from "../icons/Mail";
 import "../styles/hero.css";
-import "react-toastify/dist/ReactToastify.css";
 
 const socialLinks = [
   {
@@ -28,8 +28,9 @@ const socialLinks = [
 
 const Hero = () => {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.25 });
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const heroPoints = t("hero.points", { returnObjects: true }) as string[];
+  const language = i18n.resolvedLanguage === "es" ? "es" : "en";
 
   return (
     <article ref={ref} className="home hero-desktop">
@@ -76,11 +77,11 @@ const Hero = () => {
                 <a className="btn-secondary" href="#contact">
                   {t("hero.ctas.contact")}
                 </a>
-                <a
+                <button
+                  type="button"
                   className="btn-ghost"
-                  href="/Juan-Sanchez-Moreno-CV.pdf"
-                  download="Juan_Sanchez_CV.pdf"
-                  onClick={() =>
+                  onClick={async () => {
+                    await downloadActiveResume(language);
                     toast.success(t("hero.cvToast"), {
                       position: "top-center",
                       autoClose: 3000,
@@ -89,10 +90,10 @@ const Hero = () => {
                       pauseOnHover: true,
                       draggable: true,
                     })
-                  }
+                  }}
                 >
                   {t("hero.ctas.cv")}
-                </a>
+                </button>
               </div>
             </div>
 

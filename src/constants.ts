@@ -1,4 +1,3 @@
-import { projectImages } from "./images";
 import type { ExperienceItem } from "./types/Experience";
 import type { Project } from "./types/Project";
 import type { SkillItem } from "./types/Skill";
@@ -244,7 +243,6 @@ export const skills: SkillItem[] = [
 export const projects: Project[] = [
   {
     id: "local-bubbly",
-    image: projectImages.bubbly,
     title: "Bubbly",
     description:
       "Private one-to-one chat app built to explore real-time messaging and anonymous conversations.",
@@ -258,7 +256,6 @@ export const projects: Project[] = [
   },
   {
     id: "local-hive-challenges",
-    image: projectImages.hiveChallenges,
     title: "Hive Challenges",
     description:
       "Gamified web app used to run monthly sales challenges for Hive.",
@@ -271,7 +268,6 @@ export const projects: Project[] = [
   },
   {
     id: "local-hangman",
-    image: projectImages.hangman,
     title: "Ecologic Hangman Game",
     description:
       "Educational word game created for a science fair to teach sustainability to children.",
@@ -285,7 +281,6 @@ export const projects: Project[] = [
   },
   {
     id: "local-casa-milan",
-    image: projectImages.logocasamilan,
     title: "Casa Milán",
     description: "Marketing website for a student residence in Seville.",
     bullet_points: [

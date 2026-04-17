@@ -1,12 +1,5 @@
-import { useContext } from "react";
 import { ExperienceContext } from "../context/Experience/ExperienceContext";
+import { useRequiredContext } from "./useRequiredContext";
 
-export const useExperiences = () => {
-  const context = useContext(ExperienceContext);
-
-  if (!context) {
-    throw new Error("useExperiences must be used within an ExperienceProvider");
-  }
-
-  return context;
-};
+export const useExperiences = () =>
+  useRequiredContext(ExperienceContext, "useExperiences");

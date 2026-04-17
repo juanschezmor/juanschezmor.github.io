@@ -1,5 +1,5 @@
 import type { IconType } from "react-icons";
-import { FaCode, FaCss3Alt, FaJava } from "react-icons/fa6";
+import { FaAws, FaCode, FaCss3Alt, FaJava } from "react-icons/fa6";
 import {
   SiAngular,
   SiBootstrap,
@@ -18,6 +18,7 @@ import {
   SiSlack,
   SiSpringboot,
   SiTailwindcss,
+  SiVaadin,
 } from "react-icons/si";
 
 type SkillVisual = {
@@ -27,6 +28,7 @@ type SkillVisual = {
 
 const skillVisuals: Record<string, SkillVisual> = {
   angular: { icon: SiAngular, color: "#dd0031" },
+  aws: { icon: FaAws, color: "#ff9900" },
   bootstrap: { icon: SiBootstrap, color: "#7952b3" },
   css: { icon: FaCss3Alt, color: "#1572b6" },
   docker: { icon: SiDocker, color: "#2496ed" },
@@ -47,6 +49,7 @@ const skillVisuals: Record<string, SkillVisual> = {
   springboot: { icon: SiSpringboot, color: "#6db33f" },
   tailwind: { icon: SiTailwindcss, color: "#38bdf8" },
   tailwindcss: { icon: SiTailwindcss, color: "#38bdf8" },
+  vaadin: { icon: SiVaadin, color: "#00b4f0" },
 };
 
 const normalizeSkillKey = (skill: string) =>
