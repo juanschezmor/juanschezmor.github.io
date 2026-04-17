@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local admin secrets
+public/admin_credentials.csv
+admin-access.local.json
+
+# Generated AWS deployment artifacts
+aws/content-lambdas.zip
+aws/skills-lambdas.zip

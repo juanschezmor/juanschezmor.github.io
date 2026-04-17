@@ -1,13 +1,14 @@
-interface Project {
+import type { LocalizedText, LocalizedTextList } from "./localized";
+
+export type Project = {
+  id: string;
   title: string;
   description: string;
-  image: string;
+  github_link?: string;
+  live_link?: string;
   bullet_points: string[];
-  github_link: string;
-  live_link: string;
-}
-
-type Props = {
-  project: Project;
+  image?: string;
+  title_i18n?: LocalizedText;
+  description_i18n?: LocalizedText;
+  bullet_points_i18n?: LocalizedTextList;
 };
-export type { Project, Props };

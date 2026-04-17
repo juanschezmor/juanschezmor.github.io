@@ -1,115 +1,172 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import "../styles/hero.css";
-import heroImage from "../assets/hero-image.png";
-import plant1 from "../assets/plant1.svg";
-import Socials from "./Socials";
-import { TypeAnimation } from "react-type-animation";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { downloadActiveResume } from "../api/resumes";
+import Github from "../icons/Github";
+import Linkedin from "../icons/Linkedin";
+import Mail from "../icons/Mail";
+import "../styles/hero.css";
+
+const socialLinks = [
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/juanschezmor/",
+    icon: Linkedin,
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/juanschezmor",
+    icon: Github,
+  },
+  {
+    label: "Mail",
+    href: "mailto:juanschezmor@gmail.com",
+    icon: Mail,
+  },
+];
 
 const Hero = () => {
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 });
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.25 });
+  const { t, i18n } = useTranslation();
+  const heroPoints = t("hero.points", { returnObjects: true }) as string[];
+  const language = i18n.resolvedLanguage === "es" ? "es" : "en";
 
   return (
-    <article
-      ref={ref}
-      className="home flex flex-col justify-center items-center min-h-screen px-5 py-10"
-    >
-      <div className="flex flex-col lg:flex-row w-full h-full">
-        {/* Avatar */}
+    <article ref={ref} className="home hero-desktop">
+      <div className="hero-noise" aria-hidden="true" />
+      <div className="hero-grid" aria-hidden="true" />
+      <div className="hero-orb hero-orb--left" aria-hidden="true" />
+      <div className="hero-orb hero-orb--right" aria-hidden="true" />
+
+      <div className="hero-shell">
         <motion.div
-          className="w-full lg:w-7/12 flex justify-center items-center avatar"
-          initial={{ opacity: 0, x: -50 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="hero-window"
+          initial={{ opacity: 0, y: 36, scale: 0.985 }}
+          animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 0.65, ease: "easeOut" }}
         >
-          <img
-            src={heroImage}
-            alt="Juan Sánchez Moreno"
-            className="hero-image"
-          />
+          <div className="hero-window__bar">
+            <div className="hero-window__lights" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </div>
+          </div>
+
+          <div className="hero-window__content hero-window__content--single">
+            <div className="hero-copy">
+              <h1>
+                <span className="hero-title__name">Juan Sánchez</span>
+                <span className="hero-title__role">{t("hero.role")}</span>
+              </h1>
+              <p className="hero-subtitle">{t("hero.subtitle")}</p>
+
+              <ul className="hero-points">
+                {heroPoints.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+
+              <p className="hero-current">{t("hero.current")}</p>
+
+              <div className="hero-actions">
+                <a className="btn-primary" href="#projects">
+                  {t("hero.ctas.projects")}
+                </a>
+                <a className="btn-secondary" href="#contact">
+                  {t("hero.ctas.contact")}
+                </a>
+                <button
+                  type="button"
+                  className="btn-ghost"
+                  onClick={async () => {
+                    await downloadActiveResume(language);
+                    toast.success(t("hero.cvToast"), {
+                      position: "top-center",
+                      autoClose: 3000,
+                      hideProgressBar: true,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                    })
+                  }}
+                >
+                  {t("hero.ctas.cv")}
+                </button>
+              </div>
+            </div>
+
+            <motion.aside
+              className="hero-signal"
+              initial={{ opacity: 0, x: 24 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.18, ease: "easeOut" }}
+            >
+              <div className="hero-signal__bar">
+                <span className="hero-signal__prompt">C:\juan\profile\cmd.exe</span>
+                <span className="hero-signal__status">{t("hero.signal.running")}</span>
+              </div>
+
+              <div className="hero-signal__body">
+                <div className="hero-signal__line">
+                  <span className="hero-signal__cmd">C:\juan&gt; whoami</span>
+                  <p>{t("hero.signal.whoami")}</p>
+                </div>
+
+                <div className="hero-signal__line">
+                  <span className="hero-signal__cmd">C:\juan&gt; exp --years</span>
+                  <p>{t("hero.signal.years")}</p>
+                </div>
+
+                <div className="hero-signal__line">
+                  <span className="hero-signal__cmd">C:\juan&gt; where</span>
+                  <p>{t("hero.signal.where")}</p>
+                </div>
+
+                <div className="hero-signal__line">
+                  <span className="hero-signal__cmd">C:\juan&gt; tech stack --main</span>
+                  <p>{t("hero.signal.stack")}</p>
+                </div>
+
+                <div className="hero-signal__line">
+                  <span className="hero-signal__cmd">C:\juan&gt; mindset</span>
+                  <p>{t("hero.signal.mindset")}</p>
+                </div>
+
+                <div className="hero-signal__line hero-signal__line--cursor">
+                  <span className="hero-signal__cmd hero-signal__cmd--cursor">C:\juan&gt;</span>
+                  <span className="hero-signal__cursor" aria-hidden="true" />
+                </div>
+              </div>
+            </motion.aside>
+          </div>
         </motion.div>
 
-        {/* Texto + botones */}
         <motion.div
-          className="w-full lg:w-5/12 mt-6 lg:mt-0 flex flex-col justify-center"
-          initial={{ opacity: 0, y: 50 }}
+          className="hero-dock"
+          initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <div className="flex flex-col w-full max-w-md mx-auto px-4 lg:w-4/5">
-            <div className="text-6xl">
-              <h3 className="font-mono text-center lg:text-start font-bold text-[var(--secondary-text-color)]">
-                JUAN
-                <br />
-                SANCHEZ
-                <br />
-                MORENO
-              </h3>
-            </div>
-
-            <div className="title text-center mt-2">
-              <p className="text-[var(--primary-color)] font-mono text-lg">
-                Full-stack Developer
-              </p>
-            </div>
-
-            <div className="text-center md:text-start font-mono text-[var(--secondary-text-color)] text-lg mt-4">
-              <TypeAnimation
-                sequence={[
-                  "Always curious",
-                  1000,
-                  "Always improving",
-                  1000,
-                  "That’s how I grow as a developer",
-                  2000,
-                ]}
-                speed={50}
-                repeat={Infinity}
-                wrapper="p"
-                className="text-start font-mono text-[var(--secondary-text-color)] text-lg mt-4"
-              />
-            </div>
-
-            <motion.div
-              id="hire-me-btn"
-              className="mt-6 hire-me-container z-10 flex flex-row gap-3 items-center relative"
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
-              <a className="btn-primary mb-4" href="#contact">
-                Hire me!
-              </a>
+          <div className="hero-dock__group">
+            {socialLinks.map(({ label, href, icon: Icon }) => (
               <a
-                className="btn-primary mb-4"
-                href="/Juan-Sanchez-Moreno-CV.pdf"
-                download="Juan_Sanchez_CV.pdf"
-                onClick={() =>
-                  toast.success("CV downloaded successfully!", {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                  })
-                }
+                key={label}
+                href={href}
+                target={href.startsWith("mailto:") ? undefined : "_blank"}
+                rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+                className="hero-dock__item"
+                aria-label={label}
               >
-                Download CV
+                <Icon width="24px" height="24px" />
               </a>
-
-              <img
-                src={plant1}
-                alt="Plant 1"
-                className="plant hidden sm:block absolute"
-              />
-            </motion.div>
-
-            <Socials />
+            ))}
           </div>
+
+          <a className="hero-dock__resume" href="#about-me">
+            {t("hero.dock")}
+          </a>
         </motion.div>
       </div>
     </article>

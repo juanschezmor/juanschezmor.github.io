@@ -1,59 +1,71 @@
-import { experiences } from "../constants";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { useTranslation } from "react-i18next";
+import { useExperiences } from "../hooks/useExperiences";
 
 const Experience = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const { t, i18n } = useTranslation();
+  const { experiences } = useExperiences();
+  const language = i18n.resolvedLanguage === "es" ? "es" : "en";
 
   return (
-    <section
-      id="experience"
-      className="w-full px-6 py-16 bg-[var(--accent-color)] text-[var(--secondary-text-color)] font-mono"
-      ref={ref}
-    >
-      <div className="max-w-5xl mx-auto">
-        <h2 className="text-3xl mb-10 text-center font-bold">
-          Work Experience
-        </h2>
+    <section id="experience" className="experience-section" ref={ref}>
+      <div className="section-shell">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">{t("experience.eyebrow")}</p>
+            <h2 className="title">{t("experience.title")}</h2>
+          </div>
+        </div>
 
         {[...experiences]
           .sort((a, b) => b.id - a.id)
           .map((exp, expIndex) => (
             <motion.div
               key={exp.id}
-              className="mb-10 bg-[var(--secondary-text-color)] text-[var(--text-color)] p-6 rounded-lg shadow-lg"
+              className="experience-card panel-card"
               initial={{ opacity: 0, y: 40 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: expIndex * 0.3 }}
             >
-              <h3 className="text-xl font-bold">{exp.company}</h3>
-              <p className="text-sm italic mb-4">{exp.period}</p>
+              <div className="experience-card__header">
+                <div>
+                  <h3>{exp.company}</h3>
+                  <p>{exp.period_i18n?.[language] ?? exp.period}</p>
+                </div>
+              </div>
 
-              <div className="relative border-l-2 border-[var(--primary-color)] pl-6">
+              <div className="experience-timeline">
                 {[...exp.roles]
                   .sort((a, b) => b.id - a.id)
-                  .map((role, roleIndex) => (
-                    <motion.div
-                      key={role.id}
-                      className="mb-6 relative"
-                      initial={{ opacity: 0, x: -30 }}
-                      animate={inView ? { opacity: 1, x: 0 } : {}}
-                      transition={{
-                        duration: 0.5,
-                        delay: expIndex * 0.3 + roleIndex * 0.2,
-                      }}
-                    >
-                      {/* Punto en la línea de tiempo */}
-                      <span className="absolute -left-[25px] top-1 w-4 h-4 bg-[var(--primary-color)] rounded-full border-2 border-[var(--secondary-text-color)]"></span>
+                  .map((role, roleIndex) => {
+                    const title = role.title_i18n?.[language] ?? role.title;
+                    const description =
+                      role.description_i18n?.[language] ?? role.description;
 
-                      <h4 className="font-semibold text-lg">{role.title}</h4>
-                      <ul className="list-disc list-inside text-sm mt-2 space-y-1">
-                        {role.description.map((point, j) => (
-                          <li key={`desc-${role.id}-${j}`}>{point}</li>
-                        ))}
-                      </ul>
-                    </motion.div>
-                  ))}
+                    return (
+                      <motion.div
+                        key={role.id}
+                        className="experience-role"
+                        initial={{ opacity: 0, x: -30 }}
+                        animate={inView ? { opacity: 1, x: 0 } : {}}
+                        transition={{
+                          duration: 0.5,
+                          delay: expIndex * 0.3 + roleIndex * 0.2,
+                        }}
+                      >
+                        <span className="experience-role__dot"></span>
+
+                        <h4>{title}</h4>
+                        <ul>
+                          {description.map((point, index) => (
+                            <li key={`desc-${role.id}-${index}`}>{point}</li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    );
+                  })}
               </div>
             </motion.div>
           ))}

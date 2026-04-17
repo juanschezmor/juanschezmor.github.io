@@ -1,26 +1,43 @@
 import ProjectCard from "./ProjectCard";
 import "../styles/projects.css";
-import { projects } from "../constants";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
+import { useProjects } from "../hooks/useProjects";
+import { projects as fallbackProjects } from "../constants";
+import type { Project } from "../types/Project";
 
 const Projects = () => {
-  const [shownProject, setShownProject] = useState(projects[0]);
+  const { projects, loading, error } = useProjects();
+  const { t } = useTranslation();
+  const activeProjects = useMemo(
+    () => (projects.length > 0 ? projects : fallbackProjects),
+    [projects]
+  );
+  const [shownProject, setShownProject] = useState<Project>(activeProjects[0]);
   const [direction, setDirection] = useState(0);
 
+  useEffect(() => {
+    setShownProject(activeProjects[0]);
+  }, [activeProjects]);
+
   const handleNextProject = () => {
-    const currentIndex = projects.indexOf(shownProject);
-    const nextIndex = (currentIndex + 1) % projects.length;
+    const currentIndex = activeProjects.findIndex(
+      (project) => project.id === shownProject.id
+    );
+    const nextIndex = (currentIndex + 1) % activeProjects.length;
     setDirection(1);
-    setShownProject(projects[nextIndex]);
+    setShownProject(activeProjects[nextIndex]);
   };
 
   const handlePreviousProject = () => {
-    const currentIndex = projects.indexOf(shownProject);
+    const currentIndex = activeProjects.findIndex(
+      (project) => project.id === shownProject.id
+    );
     const previousIndex =
-      (currentIndex - 1 + projects.length) % projects.length;
+      (currentIndex - 1 + activeProjects.length) % activeProjects.length;
     setDirection(-1);
-    setShownProject(projects[previousIndex]);
+    setShownProject(activeProjects[previousIndex]);
   };
 
   const slideVariants = {
@@ -41,43 +58,58 @@ const Projects = () => {
   };
 
   return (
-    <article id="projects" className="projects w-full h-full px-4 py-12">
-      <div className="flex flex-col items-center justify-center w-full h-full gap-6">
-        <div className="container text-center">
-          <h2 className="title mb-2">Projects</h2>
-          <p>Here are some of the projects I've worked on.</p>
+    <article id="projects" className="projects">
+      <div className="section-shell">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">{t("projects.eyebrow")}</p>
+            <h2 className="title">{t("projects.title")}</h2>
+          </div>
+          <p className="section-copy">{t("projects.copy")}</p>
         </div>
 
-        <div className="projects-container w-full flex flex-col items-center justify-center gap-4 overflow-hidden">
+        <div className="projects-status">
+          <p>{loading ? t("projects.loading") : error ? t("projects.fallback") : ""}</p>
+        </div>
+
+        <div className="projects-container">
           <AnimatePresence custom={direction} mode="wait">
             <motion.div
-              key={shownProject.title}
+              key={shownProject.id}
               custom={direction}
               variants={slideVariants}
               initial="initial"
               animate="animate"
               exit="exit"
-              className="w-full flex justify-center items-center"
+              className="projects-stage"
             >
               <ProjectCard project={shownProject} />
             </motion.div>
           </AnimatePresence>
 
-          <div className="buttons-container flex items-center justify-center gap-6">
+          <div className="buttons-container">
             <button
               onClick={handlePreviousProject}
-              className="previous text-xl hover:scale-110 transition-transform"
+              className="previous"
+              aria-label={t("projects.previous")}
             >
               <i className="fa-solid fa-backward"></i>
             </button>
 
-            <span className="font-mono text-sm">
-              {projects.indexOf(shownProject) + 1} out of {projects.length}
+            <span>
+              {t("projects.counter", {
+                current:
+                  activeProjects.findIndex(
+                    (project) => project.id === shownProject.id
+                  ) + 1,
+                total: activeProjects.length,
+              })}
             </span>
 
             <button
               onClick={handleNextProject}
-              className="next text-xl hover:scale-110 transition-transform"
+              className="next"
+              aria-label={t("projects.next")}
             >
               <i className="fa-solid fa-forward"></i>
             </button>

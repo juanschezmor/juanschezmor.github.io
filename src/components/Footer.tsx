@@ -1,10 +1,14 @@
+import { useTranslation } from "react-i18next";
+
 const Footer = () => {
+  const { t } = useTranslation();
+
   return (
-    <footer className="w-full bg-[var(--accent-color)] text-[var(--secondary-text-color)] py-6 mt-12 text-center font-mono text-sm">
-      <p>
-        &copy; {new Date().getFullYear()} Juan Sánchez Moreno. All rights
-        reserved.
-      </p>
+    <footer className="site-footer">
+      <div className="section-shell site-footer__inner">
+        <p>&copy; {new Date().getFullYear()} Juan Sánchez Moreno.</p>
+        <p>{t("footer.builtWith")}</p>
+      </div>
     </footer>
   );
 };

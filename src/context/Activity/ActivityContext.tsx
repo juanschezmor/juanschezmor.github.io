@@ -1,0 +1,107 @@
+import {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import {
+  createActivity as createActivityRequest,
+  deleteActivity as deleteActivityRequest,
+  listActivities,
+  type ActivityPayload,
+} from "../../api/activities";
+import {
+  getFetchFallbackMessage,
+  getMutationErrorMessage,
+} from "../../api/client";
+import { activities as fallbackActivities } from "../../constants";
+import type { ActivityItem } from "../../types/Activity";
+
+interface ActivityContextType {
+  activities: ActivityItem[];
+  loading: boolean;
+  error: string | null;
+  fetchActivities: () => Promise<void>;
+  createActivity: (input: ActivityPayload) => Promise<void>;
+  deleteActivity: (id: string) => Promise<void>;
+}
+
+export const ActivityContext = createContext<ActivityContextType | undefined>(
+  undefined
+);
+
+export const ActivityProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const [activities, setActivities] = useState<ActivityItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchActivities = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const items = await listActivities();
+      setActivities(items.length > 0 ? items : fallbackActivities);
+    } catch (err) {
+      console.error("Error fetching activities:", err);
+      setActivities(fallbackActivities);
+      setError(getFetchFallbackMessage("activity", err));
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const createActivity = useCallback(
+    async (input: ActivityPayload) => {
+      try {
+        setError(null);
+        await createActivityRequest(input);
+        await fetchActivities();
+      } catch (err) {
+        console.error("Failed to create activity", err);
+        setError(getMutationErrorMessage("create activity", err));
+        throw err;
+      }
+    },
+    [fetchActivities]
+  );
+
+  const deleteActivity = useCallback(async (id: string) => {
+    try {
+      setError(null);
+      await deleteActivityRequest(id);
+      setActivities((current) =>
+        current.filter((activity) => activity.id !== id)
+      );
+    } catch (err) {
+      console.error("Failed to delete activity", err);
+      setError(getMutationErrorMessage("delete activity", err));
+    }
+  }, []);
+
+  useEffect(() => {
+    void fetchActivities();
+  }, [fetchActivities]);
+
+  const value = useMemo(
+    () => ({
+      activities,
+      loading,
+      error,
+      fetchActivities,
+      createActivity,
+      deleteActivity,
+    }),
+    [activities, loading, error, fetchActivities, createActivity, deleteActivity]
+  );
+
+  return (
+    <ActivityContext.Provider value={value}>
+      {children}
+    </ActivityContext.Provider>
+  );
+};
