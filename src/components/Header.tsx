@@ -99,8 +99,8 @@ const Header = ({ theme, onToggleTheme }: HeaderProps) => {
             type="button"
             className="site-header__cta"
             aria-label={t("hero.ctas.cv")}
-            onClick={async () => {
-              await downloadActiveResume(language);
+            onClick={() => {
+              downloadActiveResume(language);
               toast.success(t("hero.cvToast"), {
                 position: "top-center",
                 autoClose: 3000,
