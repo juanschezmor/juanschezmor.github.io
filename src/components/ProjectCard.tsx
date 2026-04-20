@@ -42,7 +42,14 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
     <div className="project panel-card">
       <div className="project-media">
         {project.image ? (
-          <img className="project-image" src={project.image} alt={title} />
+          <img
+            className="project-image"
+            src={project.image}
+            alt={title}
+            loading="lazy"
+            decoding="async"
+            draggable={false}
+          />
         ) : (
           <div className="project-image-placeholder" aria-hidden="true">
             <span>{title}</span>
@@ -50,10 +57,12 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
         )}
       </div>
 
-      <div className="project-copy">
-        <p className="project-kicker">{t("projects.kicker")}</p>
-        <h3>{title}</h3>
-        <p className="project-description">{description}</p>
+      <div className="project-content">
+        <div className="project-copy">
+          <p className="project-kicker">{t("projects.kicker")}</p>
+          <h3>{title}</h3>
+          <p className="project-description">{description}</p>
+        </div>
 
         <div className="project-details">
           <h6>{t("projects.highlights")}</h6>

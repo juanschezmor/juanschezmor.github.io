@@ -1,6 +1,6 @@
 import ProjectCard from "./ProjectCard";
 import "../styles/projects.css";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type KeyboardEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useProjects } from "../hooks/useProjects";
@@ -40,6 +40,18 @@ const Projects = () => {
     setShownProject(activeProjects[previousIndex]);
   };
 
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      handleNextProject();
+    }
+
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      handlePreviousProject();
+    }
+  };
+
   const slideVariants = {
     initial: (dir: number) => ({
       x: dir > 0 ? 200 : -200,
@@ -72,7 +84,16 @@ const Projects = () => {
           <p>{loading ? t("projects.loading") : error ? t("projects.fallback") : ""}</p>
         </div>
 
-        <div className="projects-container">
+        <div
+          className="projects-container"
+          role="region"
+          aria-roledescription="carousel"
+          aria-label={t("projects.carouselLabel", {
+            defaultValue: "Projects carousel",
+          })}
+          onKeyDown={handleKeyDown}
+          tabIndex={0}
+        >
           <AnimatePresence custom={direction} mode="wait">
             <motion.div
               key={shownProject.id}
@@ -89,6 +110,7 @@ const Projects = () => {
 
           <div className="buttons-container">
             <button
+              type="button"
               onClick={handlePreviousProject}
               className="previous"
               aria-label={t("projects.previous")}
@@ -96,7 +118,7 @@ const Projects = () => {
               <i className="fa-solid fa-backward"></i>
             </button>
 
-            <span>
+            <span aria-live="polite" aria-atomic="true">
               {t("projects.counter", {
                 current:
                   activeProjects.findIndex(
@@ -107,6 +129,7 @@ const Projects = () => {
             </span>
 
             <button
+              type="button"
               onClick={handleNextProject}
               className="next"
               aria-label={t("projects.next")}
