@@ -1,6 +1,6 @@
 import { useId } from "react";
 import logo from "../assets/logo.png";
-import { openActiveResumePreview } from "../api/resumes";
+import { getResumePreviewUrl } from "../api/resumes";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
@@ -95,12 +95,13 @@ const Header = ({ theme, onToggleTheme }: HeaderProps) => {
         </nav>
 
         <div className="site-header__controls">
-          <button
-            type="button"
+          <a
             className="site-header__cta"
             aria-label={t("hero.ctas.cv")}
+            href={getResumePreviewUrl(language)}
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => {
-              openActiveResumePreview(language);
               toast.success(t("hero.cvToast"), {
                 position: "top-center",
                 autoClose: 3000,
@@ -115,7 +116,7 @@ const Header = ({ theme, onToggleTheme }: HeaderProps) => {
               ↓
             </span>
             <span>{t("hero.ctas.cv")}</span>
-          </button>
+          </a>
           <button
             type="button"
             className="language-toggle"

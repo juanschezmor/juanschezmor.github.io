@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
-import { openActiveResumePreview } from "../api/resumes";
+import { getResumePreviewUrl } from "../api/resumes";
 import Github from "../icons/Github";
 import Linkedin from "../icons/Linkedin";
 import Mail from "../icons/Mail";
@@ -77,11 +77,12 @@ const Hero = () => {
                 <a className="btn-secondary" href="#contact">
                   {t("hero.ctas.contact")}
                 </a>
-                <button
-                  type="button"
+                <a
                   className="btn-ghost"
-                  onClick={async () => {
-                    openActiveResumePreview(language);
+                  href={getResumePreviewUrl(language)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => {
                     toast.success(t("hero.cvToast"), {
                       position: "top-center",
                       autoClose: 3000,
@@ -89,11 +90,11 @@ const Hero = () => {
                       closeOnClick: true,
                       pauseOnHover: true,
                       draggable: true,
-                    })
+                    });
                   }}
                 >
                   {t("hero.ctas.cv")}
-                </button>
+                </a>
               </div>
             </div>
 
