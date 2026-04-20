@@ -19,8 +19,32 @@ export interface ResumeUploadPayload {
 const buildResumeDownloadUrl = (language: ResumeLanguage) =>
   `${API_BASE_URL}/resumes/download?lang=${language}`;
 
-const openInNewTab = (url: string) => {
-  window.open(url, "_blank", "noopener,noreferrer");
+const triggerPreview = (url: string) => {
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.style.display = "none";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+};
+
+const triggerDownload = (url: string, downloadName?: string) => {
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.rel = "noopener noreferrer";
+
+  if (downloadName) {
+    link.download = downloadName;
+  }
+
+  link.style.display = "none";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
 };
 
 export const listResumes = () =>
@@ -45,12 +69,23 @@ export const activateResume = (id: string) =>
 export const deleteResumeVersion = (id: string) =>
   sendRequest(`/resumes/${id}`, { method: "DELETE" }, { requiresAuth: true });
 
-export const downloadActiveResume = (language: ResumeLanguage) => {
+export const openActiveResumePreview = (language: ResumeLanguage) => {
+  const fallback = getLegacyResumeFallback(language);
+
   try {
-    openInNewTab(buildResumeDownloadUrl(language));
+    triggerPreview(buildResumeDownloadUrl(language));
   } catch {
-    const fallback = getLegacyResumeFallback(language);
-    openInNewTab(fallback.publicPath);
+    triggerPreview(fallback.publicPath);
+  }
+};
+
+export const downloadActiveResume = (language: ResumeLanguage) => {
+  const fallback = getLegacyResumeFallback(language);
+
+  try {
+    triggerDownload(buildResumeDownloadUrl(language));
+  } catch {
+    triggerDownload(fallback.publicPath, fallback.downloadName);
   }
 };
 

@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
-import { downloadActiveResume } from "../api/resumes";
+import { openActiveResumePreview } from "../api/resumes";
 import Github from "../icons/Github";
 import Linkedin from "../icons/Linkedin";
 import Mail from "../icons/Mail";
@@ -81,7 +81,7 @@ const Hero = () => {
                   type="button"
                   className="btn-ghost"
                   onClick={async () => {
-                    await downloadActiveResume(language);
+                    openActiveResumePreview(language);
                     toast.success(t("hero.cvToast"), {
                       position: "top-center",
                       autoClose: 3000,
