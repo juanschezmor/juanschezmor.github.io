@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
-import { openActiveResumePreview } from "../api/resumes";
+import { getResumeDownloadUrl } from "../api/resumes";
 import Github from "../icons/Github";
 import Linkedin from "../icons/Linkedin";
 import Mail from "../icons/Mail";
@@ -29,7 +28,6 @@ const socialLinks = [
 const Hero = () => {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.25 });
   const { t, i18n } = useTranslation();
-  const heroPoints = t("hero.points", { returnObjects: true }) as string[];
   const language = i18n.resolvedLanguage === "es" ? "es" : "en";
 
   return (
@@ -62,14 +60,6 @@ const Hero = () => {
               </h1>
               <p className="hero-subtitle">{t("hero.subtitle")}</p>
 
-              <ul className="hero-points">
-                {heroPoints.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
-
-              <p className="hero-current">{t("hero.current")}</p>
-
               <div className="hero-actions">
                 <a className="btn-primary" href="#projects">
                   {t("hero.ctas.projects")}
@@ -77,23 +67,14 @@ const Hero = () => {
                 <a className="btn-secondary" href="#contact">
                   {t("hero.ctas.contact")}
                 </a>
-                <button
-                  type="button"
+                <a
                   className="btn-ghost"
-                  onClick={async () => {
-                    openActiveResumePreview(language);
-                    toast.success(t("hero.cvToast"), {
-                      position: "top-center",
-                      autoClose: 3000,
-                      hideProgressBar: true,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                    })
-                  }}
+                  href={getResumeDownloadUrl(language)}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   {t("hero.ctas.cv")}
-                </button>
+                </a>
               </div>
             </div>
 
@@ -104,8 +85,12 @@ const Hero = () => {
               transition={{ duration: 0.5, delay: 0.18, ease: "easeOut" }}
             >
               <div className="hero-signal__bar">
-                <span className="hero-signal__prompt">C:\juan\profile\cmd.exe</span>
-                <span className="hero-signal__status">{t("hero.signal.running")}</span>
+                <span className="hero-signal__prompt">
+                  C:\juan\profile\cmd.exe
+                </span>
+                <span className="hero-signal__status">
+                  {t("hero.signal.running")}
+                </span>
               </div>
 
               <div className="hero-signal__body">
@@ -115,7 +100,9 @@ const Hero = () => {
                 </div>
 
                 <div className="hero-signal__line">
-                  <span className="hero-signal__cmd">C:\juan&gt; exp --years</span>
+                  <span className="hero-signal__cmd">
+                    C:\juan&gt; exp --years
+                  </span>
                   <p>{t("hero.signal.years")}</p>
                 </div>
 
@@ -125,7 +112,9 @@ const Hero = () => {
                 </div>
 
                 <div className="hero-signal__line">
-                  <span className="hero-signal__cmd">C:\juan&gt; tech stack --main</span>
+                  <span className="hero-signal__cmd">
+                    C:\juan&gt; tech stack --main
+                  </span>
                   <p>{t("hero.signal.stack")}</p>
                 </div>
 
@@ -135,7 +124,9 @@ const Hero = () => {
                 </div>
 
                 <div className="hero-signal__line hero-signal__line--cursor">
-                  <span className="hero-signal__cmd hero-signal__cmd--cursor">C:\juan&gt;</span>
+                  <span className="hero-signal__cmd hero-signal__cmd--cursor">
+                    C:\juan&gt;
+                  </span>
                   <span className="hero-signal__cursor" aria-hidden="true" />
                 </div>
               </div>
@@ -155,7 +146,9 @@ const Hero = () => {
                 key={label}
                 href={href}
                 target={href.startsWith("mailto:") ? undefined : "_blank"}
-                rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+                rel={
+                  href.startsWith("mailto:") ? undefined : "noopener noreferrer"
+                }
                 className="hero-dock__item"
                 aria-label={label}
               >

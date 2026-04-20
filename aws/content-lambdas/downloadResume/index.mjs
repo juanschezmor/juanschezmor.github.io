@@ -1,11 +1,24 @@
 import {
-  binaryResponse,
   getActiveResumeRecord,
   jsonResponse,
   optionsResponse,
-  readResumeObject,
+  resumesBucketName,
+  s3Client,
   sanitizeResumeLanguage,
 } from "../_shared/resume-store.mjs";
+import { GetObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+
+const buildResumeRedirectUrl = async (resume) => {
+  const command = new GetObjectCommand({
+    Bucket: resumesBucketName,
+    Key: resume.storage_key,
+    ResponseContentType: resume.content_type,
+    ResponseContentDisposition: `inline; filename="${resume.file_name}"`,
+  });
+
+  return getSignedUrl(s3Client, command, { expiresIn: 300 });
+};
 
 export const handler = async (event) => {
   if (event?.requestContext?.http?.method === "OPTIONS" || event?.httpMethod === "OPTIONS") {
@@ -31,15 +44,16 @@ export const handler = async (event) => {
       });
     }
 
-    const fileBuffer = await readResumeObject(activeResume.storage_key);
+    const redirectUrl = await buildResumeRedirectUrl(activeResume);
 
-    return binaryResponse(200, fileBuffer, {
-      "Content-Type": activeResume.content_type,
-      "Cache-Control": "no-store",
-      "Content-Disposition": `inline; filename="${activeResume.file_name}"; filename*=UTF-8''${encodeURIComponent(
-        activeResume.file_name
-      )}`,
-    });
+    return {
+      statusCode: 302,
+      headers: {
+        "Cache-Control": "no-store",
+        Location: redirectUrl,
+      },
+      body: "",
+    };
   } catch (error) {
     console.error("Failed to download resume", error);
     return jsonResponse(500, {
