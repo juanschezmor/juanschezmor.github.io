@@ -1,6 +1,6 @@
 import { useId } from "react";
 import logo from "../assets/logo.png";
-import { downloadActiveResume } from "../api/resumes";
+import { openActiveResumePreview } from "../api/resumes";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
@@ -100,7 +100,7 @@ const Header = ({ theme, onToggleTheme }: HeaderProps) => {
             className="site-header__cta"
             aria-label={t("hero.ctas.cv")}
             onClick={() => {
-              downloadActiveResume(language);
+              openActiveResumePreview(language);
               toast.success(t("hero.cvToast"), {
                 position: "top-center",
                 autoClose: 3000,

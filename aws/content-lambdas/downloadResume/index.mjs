@@ -36,7 +36,7 @@ export const handler = async (event) => {
     return binaryResponse(200, fileBuffer, {
       "Content-Type": activeResume.content_type,
       "Cache-Control": "no-store",
-      "Content-Disposition": `attachment; filename*=UTF-8''${encodeURIComponent(
+      "Content-Disposition": `inline; filename="${activeResume.file_name}"; filename*=UTF-8''${encodeURIComponent(
         activeResume.file_name
       )}`,
     });

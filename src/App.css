@@ -27,7 +27,8 @@
   --hero-body-color: rgba(245, 247, 251, 0.66);
   --hero-inline-surface: rgba(255, 255, 255, 0.04);
   --hero-inline-border: rgba(255, 255, 255, 0.08);
-  --hero-panel-surface: linear-gradient(
+  --hero-panel-surface:
+    linear-gradient(
       180deg,
       rgba(255, 255, 255, 0.045),
       rgba(255, 255, 255, 0.02)
@@ -51,40 +52,45 @@ html[data-theme="light"] {
   --accent-color-2: #1e2b40;
   --background-color: #f3efe8;
   --background-soft: #efe9df;
-  --surface-color: rgba(255, 255, 255, 0.8);
+  --surface-color: rgba(255, 255, 255, 0.82);
   --surface-strong: #ffffff;
-  --border-color: rgba(15, 23, 42, 0.1);
-  --secondary-text-color: #f6f7fb;
+  --border-color: rgba(15, 23, 42, 0.3);
+  --secondary-text-color: #111827;
   --muted-text-color: #75849a;
   --body-text-color: #455266;
-  --page-gradient-start: #08111f;
-  --page-gradient-mid: #111c2b;
+  --page-gradient-start: #f8f3eb;
+  --page-gradient-mid: #f3efe8;
   --page-gradient-end: #f3efe8;
   --section-background: #f3efe8;
   --section-background-soft: #ede5d8;
-  --header-surface: rgba(8, 17, 31, 0.8);
-  --hero-title-color: rgba(245, 247, 251, 0.9);
-  --hero-subtitle-color: rgba(245, 247, 251, 0.76);
-  --hero-body-color: rgba(245, 247, 251, 0.66);
-  --hero-inline-surface: rgba(255, 255, 255, 0.04);
-  --hero-inline-border: rgba(255, 255, 255, 0.08);
-  --hero-panel-surface: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.045),
-      rgba(255, 255, 255, 0.02)
-    ),
-    rgba(255, 255, 255, 0.025);
-  --hero-panel-border: rgba(255, 255, 255, 0.08);
-  --social-surface: rgba(255, 255, 255, 0.04);
-  --social-border: rgba(255, 255, 255, 0.12);
+  --header-surface: rgba(255, 255, 255, 0.82);
+  --hero-title-color: rgba(17, 24, 39, 0.94);
+  --hero-subtitle-color: rgba(17, 24, 39, 0.76);
+  --hero-body-color: rgba(69, 82, 102, 0.92);
+  --hero-inline-surface: rgba(0, 0, 0, 0.03);
+  --hero-inline-border: rgba(15, 23, 42, 0.08);
+  --hero-panel-surface:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.015)),
+    rgba(255, 255, 255, 0.72);
+  --hero-panel-border: rgba(15, 23, 42, 0.08);
+  --social-surface: rgba(255, 255, 255, 0.72);
+  --social-border: rgba(15, 23, 42, 0.08);
 }
 
 html {
   scroll-behavior: smooth;
   font-family: var(--font-sans);
   background:
-    radial-gradient(circle at top left, rgba(243, 164, 106, 0.12), transparent 28%),
-    radial-gradient(circle at top right, rgba(96, 165, 250, 0.09), transparent 22%),
+    radial-gradient(
+      circle at top left,
+      rgba(243, 164, 106, 0.12),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at top right,
+      rgba(96, 165, 250, 0.09),
+      transparent 22%
+    ),
     linear-gradient(
       180deg,
       var(--page-gradient-start) 0%,
@@ -127,8 +133,15 @@ textarea:disabled {
 }
 
 code {
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
+  font-family:
+    Menlo,
+    Monaco,
+    Lucida Console,
+    Liberation Mono,
+    DejaVu Sans Mono,
+    Bitstream Vera Sans Mono,
+    Courier New,
+    monospace;
 }
 
 .btn-primary {
@@ -249,7 +262,7 @@ code {
   padding: 0.85rem 1rem;
   border-radius: 999px;
   background: var(--header-surface);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-color);
   backdrop-filter: blur(18px);
 }
 
@@ -305,7 +318,11 @@ code {
   min-height: 2.45rem;
   padding: 0.55rem 0.95rem;
   background:
-    linear-gradient(180deg, rgba(243, 164, 106, 0.2), rgba(243, 164, 106, 0.12)),
+    linear-gradient(
+      180deg,
+      rgba(243, 164, 106, 0.2),
+      rgba(243, 164, 106, 0.12)
+    ),
     rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(243, 164, 106, 0.28);
   border-radius: 999px;
@@ -342,8 +359,8 @@ code {
 
 .language-toggle,
 .theme-toggle {
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  background: var(--hero-inline-surface);
   color: var(--secondary-text-color);
   cursor: pointer;
   transition:
@@ -470,7 +487,11 @@ html[data-theme="light"] .theme-toggle__icon {
 .site-header__cta:hover {
   border-color: rgba(243, 164, 106, 0.46);
   background:
-    linear-gradient(180deg, rgba(243, 164, 106, 0.24), rgba(243, 164, 106, 0.16)),
+    linear-gradient(
+      180deg,
+      rgba(243, 164, 106, 0.24),
+      rgba(243, 164, 106, 0.16)
+    ),
     rgba(255, 255, 255, 0.06);
   transform: translateY(-1px);
   box-shadow:

@@ -12,7 +12,7 @@ function App() {
   const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
-    const storedTheme = window.localStorage.getItem("portfolio-theme");
+    const storedTheme = globalThis.localStorage.getItem("portfolio-theme");
     if (storedTheme === "dark" || storedTheme === "light") {
       setTheme(storedTheme);
     }
@@ -20,7 +20,7 @@ function App() {
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
-    window.localStorage.setItem("portfolio-theme", theme);
+    globalThis.localStorage.setItem("portfolio-theme", theme);
   }, [theme]);
 
   return (

@@ -2,9 +2,9 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
 const storedLanguage =
-  typeof window !== "undefined"
-    ? window.localStorage.getItem("portfolio-language")
-    : null;
+  globalThis.window === undefined
+    ? null
+    : globalThis.localStorage.getItem("portfolio-language");
 
 const resources = {
   en: {
@@ -89,7 +89,8 @@ const resources = {
         current: "Current work",
         currentCopy: "Building and maintaining public-sector software.",
         learning: "Learning",
-        learningCopy: "AWS foundations, delivery patterns, and stronger UI systems.",
+        learningCopy:
+          "AWS foundations, delivery patterns, and stronger UI systems.",
         next: "Next",
         nextCopy: "Sharper personal projects and a better portfolio system.",
       },
@@ -139,8 +140,7 @@ const resources = {
       projects: {
         eyebrow: "Projects",
         title: "Personal projects",
-        copy:
-          "Things I’ve built outside work to explore ideas, try technologies, and make products that feel worth shipping.",
+        copy: "Things I’ve built outside work to explore ideas, try technologies, and make products that feel worth shipping.",
         loading: "Loading project content...",
         fallback: "Showing local projects while the API is unavailable.",
         previous: "Previous project",
@@ -179,7 +179,8 @@ const resources = {
             ],
           },
           "local-casa-milan": {
-            description: "Marketing website for a student residence in Seville.",
+            description:
+              "Marketing website for a student residence in Seville.",
             bullet_points: [
               "Built with Next.js.",
               "Designed responsive pages for mobile and desktop.",
@@ -202,8 +203,7 @@ const resources = {
       contact: {
         eyebrow: "Contact",
         title: "Contact",
-        copy:
-          "If you are hiring or want to talk through a project, you can reach me here.",
+        copy: "If you are hiring or want to talk through a project, you can reach me here.",
         labels: {
           email: "Email",
           basedIn: "Based in",
@@ -314,9 +314,11 @@ const resources = {
         current: "Trabajo actual",
         currentCopy: "Desarrollo y mantengo software para el sector público.",
         learning: "Aprendiendo",
-        learningCopy: "Fundamentos de AWS, patrones de entrega y sistemas de interfaz más sólidos.",
+        learningCopy:
+          "Fundamentos de AWS, patrones de entrega y sistemas de interfaz más sólidos.",
         next: "Siguiente paso",
-        nextCopy: "Proyectos personales más pulidos y un portfolio mejor resuelto.",
+        nextCopy:
+          "Proyectos personales más pulidos y un portfolio mejor resuelto.",
       },
       experience: {
         eyebrow: "Experiencia",
@@ -364,8 +366,7 @@ const resources = {
       projects: {
         eyebrow: "Proyectos",
         title: "Proyectos personales",
-        copy:
-          "Cosas que he construido fuera del trabajo para probar ideas, tocar tecnologías nuevas y sacar productos con sentido.",
+        copy: "Cosas que he construido fuera del trabajo para probar ideas, tocar tecnologías nuevas y sacar productos con sentido.",
         loading: "Cargando proyectos...",
         fallback: "Mostrando proyectos locales mientras la API no responde.",
         previous: "Proyecto anterior",
@@ -428,8 +429,7 @@ const resources = {
       contact: {
         eyebrow: "Contacto",
         title: "Contacto",
-        copy:
-          "Si estás contratando o quieres hablar de un proyecto, puedes escribirme aquí.",
+        copy: "Si estás contratando o quieres hablar de un proyecto, puedes escribirme aquí.",
         labels: {
           email: "Email",
           basedIn: "Ubicación",
@@ -462,7 +462,8 @@ const resources = {
 
 i18n.use(initReactI18next).init({
   resources,
-  lng: storedLanguage === "es" || storedLanguage === "en" ? storedLanguage : "en",
+  lng:
+    storedLanguage === "es" || storedLanguage === "en" ? storedLanguage : "en",
   fallbackLng: "en",
   interpolation: {
     escapeValue: false,
