@@ -1,39 +1,23 @@
 import {
-  binaryResponse,
   getActiveResumeRecord,
   jsonResponse,
   optionsResponse,
-  readResumeObject,
+  resumesBucketName,
+  s3Client,
   sanitizeResumeLanguage,
 } from "../_shared/resume-store.mjs";
+import { GetObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
-const getHeader = (event, name) => {
-  const headers = event?.headers ?? {};
-  const lowerName = name.toLowerCase();
+const buildResumeRedirectUrl = async (resume) => {
+  const command = new GetObjectCommand({
+    Bucket: resumesBucketName,
+    Key: resume.storage_key,
+    ResponseContentType: resume.content_type,
+    ResponseContentDisposition: `inline; filename="${resume.file_name}"`,
+  });
 
-  return (
-    headers[name] ??
-    headers[lowerName] ??
-    headers[name.toUpperCase()] ??
-    null
-  );
-};
-
-const isIphoneSafari = (event) => {
-  const userAgent = getHeader(event, "user-agent");
-
-  if (typeof userAgent !== "string") {
-    return false;
-  }
-
-  return (
-    userAgent.includes("iPhone") &&
-    userAgent.includes("Safari") &&
-    !userAgent.includes("CriOS") &&
-    !userAgent.includes("FxiOS") &&
-    !userAgent.includes("EdgiOS") &&
-    !userAgent.includes("OPiOS")
-  );
+  return getSignedUrl(s3Client, command, { expiresIn: 300 });
 };
 
 export const handler = async (event) => {
@@ -60,22 +44,16 @@ export const handler = async (event) => {
       });
     }
 
-    const fileBuffer = await readResumeObject(activeResume.storage_key);
-    const forceDownload = isIphoneSafari(event);
+    const redirectUrl = await buildResumeRedirectUrl(activeResume);
 
-    return binaryResponse(200, fileBuffer, {
-      "Content-Type": forceDownload
-        ? "application/octet-stream"
-        : activeResume.content_type,
-      "Cache-Control": "no-store",
-      "Content-Disposition": forceDownload
-        ? `attachment; filename="${activeResume.file_name}"; filename*=UTF-8''${encodeURIComponent(
-            activeResume.file_name
-          )}`
-        : `inline; filename="${activeResume.file_name}"; filename*=UTF-8''${encodeURIComponent(
-            activeResume.file_name
-          )}`,
-    });
+    return {
+      statusCode: 302,
+      headers: {
+        "Cache-Control": "no-store",
+        Location: redirectUrl,
+      },
+      body: "",
+    };
   } catch (error) {
     console.error("Failed to download resume", error);
     return jsonResponse(500, {

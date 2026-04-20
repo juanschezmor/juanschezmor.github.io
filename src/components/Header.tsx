@@ -1,8 +1,8 @@
 import { useId } from "react";
 import logo from "../assets/logo.png";
-import { getResumePreviewUrl } from "../api/resumes";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { getResumeDownloadUrl } from "../api/resumes";
 
 interface HeaderProps {
   theme: "dark" | "light";
@@ -98,7 +98,7 @@ const Header = ({ theme, onToggleTheme }: HeaderProps) => {
           <a
             className="site-header__cta"
             aria-label={t("hero.ctas.cv")}
-            href={getResumePreviewUrl(language)}
+            href={getResumeDownloadUrl(language)}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => {

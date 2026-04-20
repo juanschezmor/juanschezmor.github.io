@@ -16,8 +16,48 @@ export interface ResumeUploadPayload {
   activate?: boolean;
 }
 
-export const getResumePreviewUrl = (language: ResumeLanguage) =>
+export const getResumeDownloadUrl = (language: ResumeLanguage) =>
   `${API_BASE_URL}/resumes/download?lang=${language}`;
+
+const fetchResumeBlob = async (language: ResumeLanguage) => {
+  const response = await fetch(getResumeDownloadUrl(language));
+
+  if (!response.ok) {
+    throw new Error(
+      `Resume request failed with status ${response.status}.`
+    );
+  }
+
+  return response.blob();
+};
+
+const openPreviewWindow = () => {
+  const previewWindow = window.open("", "_blank");
+
+  if (!previewWindow) {
+    return null;
+  }
+
+  previewWindow.document.write(
+    "<!doctype html><title>Loading CV...</title><p style=\"font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 24px;\">Loading CV...</p>"
+  );
+  previewWindow.document.close();
+  return previewWindow;
+};
+
+const openBlobInWindow = (blob: Blob, targetWindow: Window | null) => {
+  const objectUrl = URL.createObjectURL(blob);
+
+  if (targetWindow) {
+    targetWindow.location.replace(objectUrl);
+  } else {
+    window.location.assign(objectUrl);
+  }
+
+  window.setTimeout(() => {
+    URL.revokeObjectURL(objectUrl);
+  }, 60_000);
+};
 
 const triggerDownload = (url: string, downloadName?: string) => {
   const link = document.createElement("a");
@@ -57,11 +97,24 @@ export const activateResume = (id: string) =>
 export const deleteResumeVersion = (id: string) =>
   sendRequest(`/resumes/${id}`, { method: "DELETE" }, { requiresAuth: true });
 
+export const openActiveResumeFromAws = async (language: ResumeLanguage) => {
+  const fallback = getLegacyResumeFallback(language);
+  const previewWindow = openPreviewWindow();
+
+  try {
+    const blob = await fetchResumeBlob(language);
+    openBlobInWindow(blob, previewWindow);
+  } catch {
+    previewWindow?.close();
+    triggerDownload(fallback.publicPath, fallback.downloadName);
+  }
+};
+
 export const downloadActiveResume = (language: ResumeLanguage) => {
   const fallback = getLegacyResumeFallback(language);
 
   try {
-    triggerDownload(getResumePreviewUrl(language));
+    triggerDownload(getResumeDownloadUrl(language));
   } catch {
     triggerDownload(fallback.publicPath, fallback.downloadName);
   }

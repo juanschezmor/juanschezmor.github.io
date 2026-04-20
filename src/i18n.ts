@@ -25,14 +25,7 @@ const resources = {
       },
       hero: {
         role: "Full-stack developer.",
-        subtitle:
-          "I work on real production systems, fixing legacy code and shipping new features.",
-        points: [
-          "Reduced code duplication by 60% in a production app",
-          "Migrated systems from Oracle to PostgreSQL",
-          "Deliver features across frontend and backend",
-        ],
-        current: "Currently working on public-sector platforms.",
+        subtitle: "I build, fix, and learn as I go.",
         ctas: {
           projects: "View Projects",
           contact: "Get In Touch",
@@ -41,18 +34,18 @@ const resources = {
         cvToast: "CV downloaded successfully!",
         signal: {
           running: "running",
-          whoami: "Full-stack developer",
-          years: "2+ years",
-          where: "Based in Spain. Open to relocation.",
+          whoami: "Juan Sánchez",
+          years: "2+ years in real projects",
+          where: "Spain / open to relocation",
           stack: "React / Spring Boot / PostgreSQL",
-          mindset: "Still learning, tightening, and improving.",
+          mindset: "Build, learn, improve",
         },
         dock: "scroll to explore",
       },
       activity: {
         eyebrow: "Activity",
         title: "Recent updates",
-        copy: "A running log of what I have been building, learning, and shipping lately.",
+        copy: "Recent work, learning, and small updates.",
         items: {
           "1": {
             label: "Portfolio rewrite",
@@ -77,22 +70,22 @@ const resources = {
         },
       },
       about: {
-        eyebrow: "Summary",
-        title: "Professional summary",
-        aboutTitle: "About me",
+        eyebrow: "About",
+        title: "A bit about me",
+        aboutTitle: "How I work",
         paragraphs: [
-          "My name is Juan Sánchez, and I’ve been working as a full-stack developer since 2024.",
-          "I tend to learn by building things. When I have an idea, I usually try to implement it, whether that means exploring a new tool or improving something I’ve already worked on.",
-          "I’m comfortable moving across the stack when needed, especially when a feature depends on both frontend and backend decisions.",
+          "I’ve been working as a full-stack developer since 2024, mostly in real production environments.",
+          "I tend to learn by building. If an idea sticks with me, I usually end up turning it into something real.",
+          "I like working across the stack when a feature needs both product sense and technical follow-through.",
         ],
         sideTitle: "Right now",
-        current: "Current work",
-        currentCopy: "Building and maintaining public-sector software.",
+        current: "Work",
+        currentCopy: "Building and maintaining software for the public sector.",
         learning: "Learning",
-        learningCopy:
-          "AWS foundations, delivery patterns, and stronger UI systems.",
+        learningCopy: "AWS, delivery patterns, and cleaner interface systems.",
         next: "Next",
-        nextCopy: "Sharper personal projects and a better portfolio system.",
+        nextCopy:
+          "Stronger personal projects and a portfolio that feels more like my own.",
       },
       experience: {
         eyebrow: "Experience",
@@ -104,18 +97,12 @@ const resources = {
               current: {
                 title: "Full Stack Developer",
                 description: [
-                  "Develop and maintain React and Spring Boot features for a public-sector platform used in Spain.",
-                  "Work with PostgreSQL data flows, service integrations, and production support tasks.",
-                  "Contribute to Docker-based deployments in a microservices environment.",
-                ],
-              },
-              previous: {
-                title: "Full Stack Developer",
-                description: [
-                  "Maintained a legacy JSF and EJB application for the Government of the Canary Islands.",
-                  "Worked on PostgreSQL-backed workflows and internal business logic.",
-                  "Helped move legacy modules toward Vaadin and Spring Boot.",
-                  "Built Angular and Spring Boot side projects for internal and client-facing use cases.",
+                  "Developed and maintained public-sector web applications using React, Angular, and Spring Boot.",
+                  "Built reusable components with Vaadin, reducing code duplication and improving maintainability.",
+                  "Implemented new features and maintained legacy applications based on JSF.",
+                  "Migrated over 100 Oracle packages, tables, and functions to PostgreSQL.",
+                  "Set up local development environments and identity services (Keycloak) using Docker.",
+                  "Worked in a Scrum team, participating in daily stand-ups, sprint planning, and reviews.",
                 ],
               },
             },
@@ -126,11 +113,12 @@ const resources = {
               internship: {
                 title: "Software developer intern",
                 description: [
-                  "Built internal tools with React, Flask, and GeoServer.",
-                  "Automated Python scraping workflows and cut execution time by about 50%.",
-                  "Implemented a RAG prototype for semantic document retrieval.",
-                  "Explored image-classification prototypes with convolutional neural networks.",
-                  "Wrote technical documentation with Jupyter Books and managed PostgreSQL datasets.",
+                  "Developed a web platform for meteorological data using React, Flask, and Leaflet for interactive maps.",
+                  "Managed spatial databases with PostGIS and processed complex meteorological datasets.",
+                  "Built web scraping pipelines to extract financial data automatically.",
+                  "Designed a RAG-based system to analyze and retrieve insights from corporate reports.",
+                  "Automated data workflows with Python, reducing execution time by around 50%.",
+                  "Wrote technical documentation and managed datasets using Jupyter Books.",
                 ],
               },
             },
@@ -151,7 +139,21 @@ const resources = {
         code: "Code",
         live: "Live",
         items: {
+          "local-hive-challenges": {
+            title: "Hive Challenges",
+            description:
+              "Gamified web app used to run monthly sales challenges for Hive.",
+            bullet_points: [
+              "Built the frontend in React and Bootstrap.",
+              "Connected the app to Google Firestore.",
+            ],
+            github_link: "https://github.com/juanschezmor/web-month-challenges",
+            image:
+              "https://portfolio-juanschezmor-project-images-519845866784.s3.eu-north-1.amazonaws.com/project-images/2026-04-17T19-52-27-569Z-b7412cb0-d10a-45dc-916a-7a746a0f1b67-hive-challenges.png",
+            live_link: "https://hive-month-challenges.vercel.app",
+          },
           "local-bubbly": {
+            title: "Bubbly",
             description:
               "Private one-to-one chat app built to explore real-time messaging and anonymous conversations.",
             bullet_points: [
@@ -159,26 +161,45 @@ const resources = {
               "Implemented real-time messaging with Flask-SocketIO.",
               "Packaged and deployed the app with Docker and DigitalOcean.",
             ],
+            github_link: "https://github.com/juanschezmor/bubbly",
+            image:
+              "https://portfolio-juanschezmor.s3.eu-north-1.amazonaws.com/project-photos/bubbly.png",
+            live_link: "not-available",
           },
-          "local-hive-challenges": {
+          "7f806e68-0b4e-4ab3-8354-fa833d91721b": {
+            title: "Moggy",
             description:
-              "Gamified web app used to run monthly sales challenges for Hive.",
+              "A web app that generates AI-based roasts of World of Warcraft characters by analyzing their outfits and creating shareable visual content.",
             bullet_points: [
-              "Built the frontend in React and Bootstrap.",
-              "Connected the app to Google Firestore.",
+              "Fetches character data and images from the Blizzard API using name and realm.",
+              "Uses AI to generate custom roasts based on the character’s appearance.",
+              "Generates shareable image cards ready for social media.",
+              "Designed a simple flow to create short-form video content for platforms like TikTok.",
+              "Built with a focus on fast iteration and viral content potential.",
             ],
+            github_link: "https://github.com/juanschezmor/moggy",
+            image:
+              "https://portfolio-juanschezmor-project-images-519845866784.s3.eu-north-1.amazonaws.com/project-images/2026-04-17T19-59-01-690Z-d77bcccc-4b11-46e8-ae8c-eebcbce5d456-icon.png",
+            live_link: "https://moggy.vercel.app",
           },
-          "local-hangman": {
-            title: "Ecologic Hangman Game",
+          "e99d34b6-9da5-441d-8173-fa16d54d5999": {
+            title: "Hall of Mogs",
             description:
-              "Educational word game created for a science fair to teach sustainability to children.",
+              "A community-driven platform where players can share, explore, and vote on World of Warcraft transmogs, with user profiles and post interaction features.",
             bullet_points: [
-              "Built the interface in React and Tailwind CSS.",
-              "Designed the game flow for a live event and a younger audience.",
-              "Deployed it on GitHub Pages.",
+              "Full-stack application built with Next.js, Supabase, and deployed on Vercel.",
+              "User authentication and profile system with post creation and interaction.",
+              "Voting system to rank transmogs and highlight weekly winners.",
+              "Image moderation and content handling for user-generated posts.",
+              "Reached active usage with dozens of users and real content generated by the community.",
             ],
+            github_link: "https://github.com/juanschezmor/hall-of-mogs",
+            image:
+              "https://portfolio-juanschezmor-project-images-519845866784.s3.eu-north-1.amazonaws.com/project-images/2026-04-17T19-58-22-971Z-6c47c574-1b6b-4cef-9ede-9bd794ac909b-logo.png",
+            live_link: "https://hallofmogs.com",
           },
           "local-casa-milan": {
+            title: "Casa Milán",
             description:
               "Marketing website for a student residence in Seville.",
             bullet_points: [
@@ -186,6 +207,10 @@ const resources = {
               "Designed responsive pages for mobile and desktop.",
               "Deployed the site on Vercel.",
             ],
+            github_link: "https://github.com/juanschezmor/casa-milan",
+            image:
+              "https://portfolio-juanschezmor-project-images-519845866784.s3.eu-north-1.amazonaws.com/project-images/2026-04-17T19-52-51-388Z-365235d0-5292-4884-bfb3-a1074d3f3efd-logocasamilan.png",
+            live_link: "https://casa-milan.vercel.app/",
           },
         },
       },
@@ -251,13 +276,7 @@ const resources = {
       hero: {
         role: "Desarrollador full-stack.",
         subtitle:
-          "Trabajo en sistemas reales en producción, arreglando código heredado y sacando funcionalidades nuevas.",
-        points: [
-          "Reduje un 60% la duplicación de código en una aplicación en producción",
-          "Migré sistemas de Oracle a PostgreSQL",
-          "Saco funcionalidades entre frontend y backend",
-        ],
-        current: "Ahora mismo trabajo en plataformas del sector público.",
+          "Aprendo construyendo, arreglando y probando cosas de verdad.",
         ctas: {
           projects: "Ver proyectos",
           contact: "Contactar",
@@ -266,18 +285,18 @@ const resources = {
         cvToast: "CV descargado correctamente",
         signal: {
           running: "activo",
-          whoami: "Desarrollador full-stack",
-          years: "2+ años",
-          where: "Vivo en España. Abierto a reubicación.",
+          whoami: "Juan Sánchez",
+          years: "2+ años en proyectos reales",
+          where: "España / abierto a reubicación",
           stack: "React / Spring Boot / PostgreSQL",
-          mindset: "Aprendo rápido y no me cuesta entrar en terreno nuevo.",
+          mindset: "Construir, aprender, mejorar",
         },
         dock: "baja para seguir",
       },
       activity: {
         eyebrow: "Actividad",
         title: "Últimas actualizaciones",
-        copy: "Un registro rápido de lo que he ido construyendo, aprendiendo y sacando adelante.",
+        copy: "Un resumen rápido de lo que he ido construyendo, aprendiendo y mejorando últimamente",
         items: {
           "1": {
             label: "Reescritura del portfolio",
@@ -302,23 +321,23 @@ const resources = {
         },
       },
       about: {
-        eyebrow: "Resumen",
-        title: "Resumen profesional",
-        aboutTitle: "Sobre mí",
+        eyebrow: "Sobre mí",
+        title: "Un poco sobre mí",
+        aboutTitle: "Cómo trabajo",
         paragraphs: [
-          "Me llamo Juan Sánchez y trabajo como desarrollador full-stack desde 2024.",
-          "Suelo aprender construyendo. Cuando se me ocurre una idea, intento llevarla a algo real, ya sea probando una herramienta nueva o mejorando algo que ya había hecho antes.",
-          "Me muevo bien por distintas capas cuando hace falta, sobre todo cuando una funcionalidad depende tanto del frontend como del backend.",
+          "Trabajo como desarrollador full-stack desde 2024, sobre todo en entornos reales de producción.",
+          "Suelo aprender construyendo. Si una idea se me queda en la cabeza, normalmente acabo convirtiéndola en algo real.",
+          "Me gusta moverme por distintas capas cuando una funcionalidad necesita tanto criterio de producto como ejecución técnica.",
         ],
         sideTitle: "Ahora mismo",
-        current: "Trabajo actual",
-        currentCopy: "Desarrollo y mantengo software para el sector público.",
+        current: "Trabajo",
+        currentCopy:
+          "Desarrollando y manteniendo software para el sector público.",
         learning: "Aprendiendo",
         learningCopy:
-          "Fundamentos de AWS, patrones de entrega y sistemas de interfaz más sólidos.",
-        next: "Siguiente paso",
-        nextCopy:
-          "Proyectos personales más pulidos y un portfolio mejor resuelto.",
+          "AWS, patrones de entrega y sistemas de interfaz más limpios.",
+        next: "Siguiente",
+        nextCopy: "Proyectos personales más sólidos y un portfolio más mío.",
       },
       experience: {
         eyebrow: "Experiencia",
@@ -330,18 +349,12 @@ const resources = {
               current: {
                 title: "Desarrollador full stack",
                 description: [
-                  "Desarrollo y mantengo funcionalidades con React y Spring Boot para una plataforma pública usada en España.",
-                  "Trabajo con flujos de datos en PostgreSQL, integraciones de servicios y soporte en producción.",
-                  "Participo en despliegues con Docker dentro de un entorno de microservicios.",
-                ],
-              },
-              previous: {
-                title: "Desarrollador full stack",
-                description: [
-                  "Mantuve una aplicación heredada en JSF y EJB para el Gobierno de Canarias.",
-                  "Trabajé sobre flujos con PostgreSQL y lógica de negocio interna.",
-                  "Ayudé a mover módulos heredados hacia Vaadin y Spring Boot.",
-                  "Saqué side projects con Angular y Spring Boot para usos internos y de cliente.",
+                  "Desarrollo y mantenimiento de aplicaciones web del sector público con React, Angular y Spring Boot.",
+                  "Creación de componentes reutilizables con Vaadin, reduciendo la duplicidad de código y mejorando el mantenimiento.",
+                  "Desarrollo de nuevas funcionalidades y mantenimiento de aplicaciones legacy basadas en JSF.",
+                  "Migración de más de 100 paquetes, tablas y funciones de Oracle a PostgreSQL.",
+                  "Configuración de entornos de desarrollo local y servicios de identidad (Keycloak) con Docker.",
+                  "Trabajo en equipo bajo metodología Scrum, participando en dailies, planificación de sprints y revisiones.",
                 ],
               },
             },
@@ -352,11 +365,12 @@ const resources = {
               internship: {
                 title: "Prácticas de desarrollo de software",
                 description: [
-                  "Construí herramientas internas con React, Flask y GeoServer.",
-                  "Automaticé flujos de scraping en Python y recorté el tiempo de ejecución cerca de un 50%.",
-                  "Implementé un prototipo RAG para recuperación semántica de documentos.",
-                  "Probé prototipos de clasificación de imagen con redes convolucionales.",
-                  "Escribí documentación técnica con Jupyter Books y gestioné datasets en PostgreSQL.",
+                  "Desarrollo de una plataforma web de datos meteorológicos utilizando React, Flask y Leaflet para mapas interactivos.",
+                  "Gestión de bases de datos espaciales con PostGIS y procesamiento de datasets meteorológicos complejos.",
+                  "Desarrollo de pipelines de web scraping para extraer datos financieros de forma automatizada.",
+                  "Diseño de un sistema basado en RAG para analizar y recuperar información de informes corporativos.",
+                  "Automatización de flujos de datos con Python, reduciendo el tiempo de ejecución en torno a un 50%.",
+                  "Redacción de documentación técnica y gestión de datasets con Jupyter Books.",
                 ],
               },
             },
@@ -377,7 +391,21 @@ const resources = {
         code: "Código",
         live: "Demo",
         items: {
+          "local-hive-challenges": {
+            title: "Hive Challenges",
+            description:
+              "Aplicación gamificada usada para lanzar retos mensuales de ventas en Hive.",
+            bullet_points: [
+              "Construí el frontend con React y Bootstrap.",
+              "Conecté la app con Google Firestore.",
+            ],
+            github_link: "https://github.com/juanschezmor/web-month-challenges",
+            image:
+              "https://portfolio-juanschezmor-project-images-519845866784.s3.eu-north-1.amazonaws.com/project-images/2026-04-17T19-52-27-569Z-b7412cb0-d10a-45dc-916a-7a746a0f1b67-hive-challenges.png",
+            live_link: "https://hive-month-challenges.vercel.app",
+          },
           "local-bubbly": {
+            title: "Bubbly",
             description:
               "App de chat privado uno a uno creada para explorar mensajería en tiempo real y conversaciones anónimas.",
             bullet_points: [
@@ -385,26 +413,45 @@ const resources = {
               "Implementé mensajería en tiempo real con Flask-SocketIO.",
               "Empaqueté y desplegué la app con Docker y DigitalOcean.",
             ],
+            github_link: "https://github.com/juanschezmor/bubbly",
+            image:
+              "https://portfolio-juanschezmor.s3.eu-north-1.amazonaws.com/project-photos/bubbly.png",
+            live_link: "not-available",
           },
-          "local-hive-challenges": {
+          "7f806e68-0b4e-4ab3-8354-fa833d91721b": {
+            title: "Moggy",
             description:
-              "Aplicación gamificada usada para lanzar retos mensuales de ventas en Hive.",
+              "Una aplicación web que genera críticas humorísticas con IA sobre personajes de World of Warcraft, analizando sus outfits y creando contenido visual compartible.",
             bullet_points: [
-              "Construí el frontend con React y Bootstrap.",
-              "Conecté la app con Google Firestore.",
+              "Obtiene datos e imágenes de personajes desde la API de Blizzard usando nombre y reino.",
+              "Utiliza IA para generar críticas personalizadas basadas en la apariencia del personaje.",
+              "Genera tarjetas visuales listas para compartir en redes sociales.",
+              "Diseñado con un flujo simple para crear contenido en formato corto tipo TikTok.",
+              "Enfocado en iteración rápida y potencial de viralidad.",
             ],
+            github_link: "https://github.com/juanschezmor/moggy",
+            image:
+              "https://portfolio-juanschezmor-project-images-519845866784.s3.eu-north-1.amazonaws.com/project-images/2026-04-17T19-59-01-690Z-d77bcccc-4b11-46e8-ae8c-eebcbce5d456-icon.png",
+            live_link: "https://moggy.vercel.app",
           },
-          "local-hangman": {
-            title: "Ahorcado ecológico",
+          "e99d34b6-9da5-441d-8173-fa16d54d5999": {
+            title: "Hall of Mogs",
             description:
-              "Juego educativo creado para una feria de ciencias con el objetivo de enseñar sostenibilidad a niños.",
+              "Una plataforma impulsada por la comunidad donde los jugadores pueden compartir, explorar y votar transmogs de World of Warcraft, con perfiles de usuario e interacción entre publicaciones.",
             bullet_points: [
-              "Construí la interfaz con React y Tailwind CSS.",
-              "Diseñé el flujo del juego para un evento en vivo y un público joven.",
-              "Lo desplegué en GitHub Pages.",
+              "Aplicación full stack desarrollada con Next.js, Supabase y desplegada en Vercel.",
+              "Sistema de autenticación y perfiles de usuario con creación e interacción de posts.",
+              "Sistema de votación para clasificar transmogs y destacar ganadores semanales.",
+              "Moderación de imágenes y gestión de contenido generado por usuarios.",
+              "Uso real con usuarios activos y contenido generado por la comunidad.",
             ],
+            github_link: "https://github.com/juanschezmor/hall-of-mogs",
+            image:
+              "https://portfolio-juanschezmor-project-images-519845866784.s3.eu-north-1.amazonaws.com/project-images/2026-04-17T19-58-22-971Z-6c47c574-1b6b-4cef-9ede-9bd794ac909b-logo.png",
+            live_link: "https://hallofmogs.com",
           },
           "local-casa-milan": {
+            title: "Casa Milán",
             description:
               "Web corporativa para una residencia de estudiantes en Sevilla.",
             bullet_points: [
@@ -412,6 +459,10 @@ const resources = {
               "Diseñé páginas responsive para móvil y escritorio.",
               "Desplegué la web en Vercel.",
             ],
+            github_link: "https://github.com/juanschezmor/casa-milan",
+            image:
+              "https://portfolio-juanschezmor-project-images-519845866784.s3.eu-north-1.amazonaws.com/project-images/2026-04-17T19-52-51-388Z-365235d0-5292-4884-bfb3-a1074d3f3efd-logocasamilan.png",
+            live_link: "https://casa-milan.vercel.app/",
           },
         },
       },
@@ -471,8 +522,8 @@ i18n.use(initReactI18next).init({
 });
 
 i18n.on("languageChanged", (language) => {
-  if (typeof window !== "undefined") {
-    window.localStorage.setItem("portfolio-language", language);
+  if (globalThis.window !== undefined) {
+    globalThis.localStorage.setItem("portfolio-language", language);
   }
 
   if (typeof document !== "undefined") {
