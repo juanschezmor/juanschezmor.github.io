@@ -5,6 +5,18 @@
     <link rel="icon" type="image/svg+xml" href="/assets/logo-Ct-NAxvi.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Portfolio</title>
+    <script>
+      (function () {
+        var redirectPath = sessionStorage.getItem("spa:redirect");
+
+        if (!redirectPath) {
+          return;
+        }
+
+        sessionStorage.removeItem("spa:redirect");
+        history.replaceState(null, "", redirectPath);
+      })();
+    </script>
     <script type="module" crossorigin src="/assets/index-DYfp1g87.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/react-CnOlDkiP.js">
     <link rel="modulepreload" crossorigin href="/assets/motion-CN7a3xi_.js">
