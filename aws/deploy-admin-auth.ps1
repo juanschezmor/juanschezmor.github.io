@@ -22,9 +22,7 @@ if (Get-Variable -Name PSNativeCommandUseErrorActionPreference -ErrorAction Sile
 $awsCliPath = "C:\Program Files\Amazon\AWSCLIV2\aws.exe"
 $awsRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $contentLambdasRoot = Join-Path $awsRoot "content-lambdas"
-$skillsLambdasRoot = Join-Path $awsRoot "skills-lambdas"
 $contentZipPath = Join-Path $awsRoot "content-lambdas.zip"
-$skillsZipPath = Join-Path $awsRoot "skills-lambdas.zip"
 
 $authEnvironmentVariables = @{
   ADMIN_USERNAME = $AdminUsername
@@ -44,19 +42,24 @@ $contentLambdaUpdates = @(
   @{ Name = "deleteActivity"; ZipPath = $contentZipPath },
   @{ Name = "createResume"; ZipPath = $contentZipPath },
   @{ Name = "activateResume"; ZipPath = $contentZipPath },
-  @{ Name = "deleteResume"; ZipPath = $contentZipPath }
-)
-
-$skillsLambdaUpdates = @(
+  @{ Name = "deleteResume"; ZipPath = $contentZipPath },
   @{
     Name = "createSkill"
-    ZipPath = $skillsZipPath
+    ZipPath = $contentZipPath
     Handler = "createSkill/index.handler"
   },
   @{
     Name = "deleteSkill"
-    ZipPath = $skillsZipPath
+    ZipPath = $contentZipPath
     Handler = "deleteSkill/index.handler"
+  }
+)
+
+$publicContentLambdaUpdates = @(
+  @{
+    Name = "getSkills"
+    ZipPath = $contentZipPath
+    Handler = "getSkills/index.handler"
   }
 )
 
@@ -270,6 +273,56 @@ function Update-ExistingLambda {
   } finally {
     Remove-Item -LiteralPath $environmentFile -Force -ErrorAction SilentlyContinue
   }
+}
+
+function Update-ExistingLambdaCodeOnly {
+  param(
+    [Parameter(Mandatory = $true)]
+    [hashtable]$Lambda
+  )
+
+  $zipFileArgument = "fileb://$($Lambda.ZipPath)"
+
+  Invoke-Aws -Arguments @(
+    "lambda",
+    "update-function-code",
+    "--function-name",
+    $Lambda.Name,
+    "--zip-file",
+    $zipFileArgument
+  ) | Out-Null
+
+  Invoke-Aws -Arguments @(
+    "lambda",
+    "wait",
+    "function-updated-v2",
+    "--function-name",
+    $Lambda.Name
+  ) | Out-Null
+
+  $configurationArguments = @(
+    "lambda",
+    "update-function-configuration",
+    "--function-name",
+    $Lambda.Name
+  )
+
+  if ($Lambda.ContainsKey("Handler") -and -not [string]::IsNullOrWhiteSpace($Lambda.Handler)) {
+    $configurationArguments += @(
+      "--handler",
+      $Lambda.Handler
+    )
+  }
+
+  Invoke-Aws -Arguments $configurationArguments | Out-Null
+
+  Invoke-Aws -Arguments @(
+    "lambda",
+    "wait",
+    "function-updated-v2",
+    "--function-name",
+    $Lambda.Name
+  ) | Out-Null
 }
 
 function Ensure-NewContentLambda {
@@ -630,7 +683,6 @@ function Deploy-ApiStage {
 
 Write-Host "Packaging Lambda bundles..."
 Build-Zip -SourcePath $contentLambdasRoot -DestinationPath $contentZipPath
-Build-Zip -SourcePath $skillsLambdasRoot -DestinationPath $skillsZipPath
 
 Write-Host "Updating protected content Lambdas..."
 foreach ($lambda in $contentLambdaUpdates) {
@@ -638,16 +690,16 @@ foreach ($lambda in $contentLambdaUpdates) {
   Update-ExistingLambda -Lambda $lambda
 }
 
+Write-Host "Updating public content Lambdas..."
+foreach ($lambda in $publicContentLambdaUpdates) {
+  Write-Host "  - $($lambda.Name)"
+  Update-ExistingLambdaCodeOnly -Lambda $lambda
+}
+
 Write-Host "Ensuring auth Lambdas..."
 foreach ($lambda in $newContentLambdaFunctions) {
   Write-Host "  - $($lambda.Name)"
   Ensure-NewContentLambda -Lambda $lambda
-}
-
-Write-Host "Updating protected skills Lambdas..."
-foreach ($lambda in $skillsLambdaUpdates) {
-  Write-Host "  - $($lambda.Name)"
-  Update-ExistingLambda -Lambda $lambda
 }
 
 Write-Host "Ensuring auth API resources..."

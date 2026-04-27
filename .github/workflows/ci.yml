@@ -33,14 +33,8 @@ jobs:
         run: npm run build
 
   lambdas:
-    name: Lambda package checks
+    name: Lambda package check
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        lambda-package:
-          - aws/content-lambdas
-          - aws/skills-lambdas
 
     steps:
       - name: Checkout repository
@@ -51,8 +45,8 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: ${{ matrix.lambda-package }}/package-lock.json
+          cache-dependency-path: aws/content-lambdas/package-lock.json
 
       - name: Install Lambda dependencies
-        working-directory: ${{ matrix.lambda-package }}
+        working-directory: aws/content-lambdas
         run: npm ci

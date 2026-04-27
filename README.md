@@ -41,10 +41,9 @@ AWS API Gateway /prod
   |      - projects
   |      - experiences
   |      - activities
+  |      - skills
   |      - resumes
   |      - project images
-  |
-  +--> Skills Lambdas
   |
   +--> Admin auth Lambdas
          - login
@@ -84,6 +83,7 @@ The backend is serverless and lives under `aws/`.
 - projects: list, create, update, delete
 - experiences: list, create, update, delete
 - activities: list, create, delete
+- skills: list, create, delete
 - resumes: list, upload, activate, delete, download
 - project images: upload to S3
 - admin auth: login and session validation
@@ -93,14 +93,6 @@ Shared helpers:
 - `aws/content-lambdas/_shared/admin-auth.mjs`
 - `aws/content-lambdas/_shared/resume-store.mjs`
 - `aws/content-lambdas/_shared/project-images.mjs`
-
-### Skills Lambdas
-
-`aws/skills-lambdas/` contains Lambdas for listing, creating, and deleting skills.
-
-Shared helper:
-
-- `aws/skills-lambdas/_shared/admin-auth.mjs`
 
 ## Authentication Model
 
@@ -242,7 +234,6 @@ The repo intentionally ignores local secrets and generated deployment artifacts:
 - `dist/`
 - `node_modules/`
 - `aws/content-lambdas.zip`
-- `aws/skills-lambdas.zip`
 
 Admin credentials and token secrets must be managed outside git.
 
@@ -275,7 +266,7 @@ This project is being evolved deliberately as a DevOps/Cloud learning path.
 - GitHub Actions workflow added in `.github/workflows/ci.yml`.
 - Run `npm ci`.
 - Run lint and production build on every push or pull request to `main`.
-- Validate dependency installation for Lambda package folders.
+- Validate dependency installation for the consolidated Lambda package.
 
 ### Phase 3: Security Baseline
 
