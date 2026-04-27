@@ -13,6 +13,11 @@ import { skills as fallbackSkills } from "../../constants";
 import type { SkillItem } from "../../types/Skill";
 import { SkillContext } from "./SkillContextValue";
 
+const readSkills = async () => {
+  const items = await listSkills();
+  return items.length > 0 ? items : fallbackSkills;
+};
+
 export const SkillProvider = ({ children }: { children: React.ReactNode }) => {
   const [skills, setSkills] = useState<SkillItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -22,8 +27,7 @@ export const SkillProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       setLoading(true);
       setError(null);
-      const items = await listSkills();
-      setSkills(items.length > 0 ? items : fallbackSkills);
+      setSkills(await readSkills());
     } catch (err) {
       console.error("Error fetching skills:", err);
       setSkills(fallbackSkills);
@@ -60,8 +64,17 @@ export const SkillProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    void fetchSkills();
-  }, [fetchSkills]);
+    void readSkills()
+      .then(setSkills)
+      .catch((err) => {
+        console.error("Error fetching skills:", err);
+        setSkills(fallbackSkills);
+        setError(getFetchFallbackMessage("skills", err));
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   const value = useMemo(
     () => ({

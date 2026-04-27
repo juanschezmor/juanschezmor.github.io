@@ -13,6 +13,11 @@ import { activities as fallbackActivities } from "../../constants";
 import type { ActivityItem } from "../../types/Activity";
 import { ActivityContext } from "./ActivityContextValue";
 
+const readActivities = async () => {
+  const items = await listActivities();
+  return items.length > 0 ? items : fallbackActivities;
+};
+
 export const ActivityProvider = ({
   children,
 }: {
@@ -26,8 +31,7 @@ export const ActivityProvider = ({
     try {
       setLoading(true);
       setError(null);
-      const items = await listActivities();
-      setActivities(items.length > 0 ? items : fallbackActivities);
+      setActivities(await readActivities());
     } catch (err) {
       console.error("Error fetching activities:", err);
       setActivities(fallbackActivities);
@@ -66,8 +70,17 @@ export const ActivityProvider = ({
   }, []);
 
   useEffect(() => {
-    void fetchActivities();
-  }, [fetchActivities]);
+    void readActivities()
+      .then(setActivities)
+      .catch((err) => {
+        console.error("Error fetching activities:", err);
+        setActivities(fallbackActivities);
+        setError(getFetchFallbackMessage("activity", err));
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   const value = useMemo(
     () => ({

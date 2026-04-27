@@ -14,6 +14,11 @@ import { projects as fallbackProjects } from "../../constants";
 import type { Project } from "../../types/Project";
 import { ProjectContext } from "./ProjectContextValue";
 
+const readProjects = async () => {
+  const items = await listProjects();
+  return items.length > 0 ? items : fallbackProjects;
+};
+
 export const ProjectProvider = ({
   children,
 }: {
@@ -27,8 +32,7 @@ export const ProjectProvider = ({
     try {
       setLoading(true);
       setError(null);
-      const items = await listProjects();
-      setProjects(items.length > 0 ? items : fallbackProjects);
+      setProjects(await readProjects());
     } catch (err) {
       console.error("Error fetching projects:", err);
       setProjects(fallbackProjects);
@@ -80,8 +84,17 @@ export const ProjectProvider = ({
   }, []);
 
   useEffect(() => {
-    void fetchProjects();
-  }, [fetchProjects]);
+    void readProjects()
+      .then(setProjects)
+      .catch((err) => {
+        console.error("Error fetching projects:", err);
+        setProjects(fallbackProjects);
+        setError(getFetchFallbackMessage("projects", err));
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   const contextValue = useMemo(
     () => ({

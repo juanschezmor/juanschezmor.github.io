@@ -20,11 +20,8 @@ export default function AdminPage() {
   useEffect(() => {
     if (!session) {
       validatedTokenRef.current = null;
-      setUsername("admin");
       return;
     }
-
-    setUsername(session.username);
 
     if (validatedTokenRef.current === session.token) {
       return;

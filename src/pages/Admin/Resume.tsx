@@ -89,7 +89,18 @@ function Resume() {
   };
 
   useEffect(() => {
-    void loadResumes();
+    void listResumes()
+      .then(setManifest)
+      .catch((loadError) => {
+        console.error("Failed to load resumes", loadError);
+        setManifest(null);
+        setError(
+          "Resume API unavailable or not deployed yet. The legacy static PDF is still available below."
+        );
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   const groupedResumes = useMemo(

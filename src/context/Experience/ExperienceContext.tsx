@@ -14,6 +14,11 @@ import { experiences as fallbackExperiences } from "../../constants";
 import type { ExperienceItem } from "../../types/Experience";
 import { ExperienceContext } from "./ExperienceContextValue";
 
+const readExperiences = async () => {
+  const items = await listExperiences();
+  return items.length > 0 ? items : fallbackExperiences;
+};
+
 export const ExperienceProvider = ({
   children,
 }: {
@@ -27,8 +32,7 @@ export const ExperienceProvider = ({
     try {
       setLoading(true);
       setError(null);
-      const items = await listExperiences();
-      setExperiences(items.length > 0 ? items : fallbackExperiences);
+      setExperiences(await readExperiences());
     } catch (err) {
       console.error("Error fetching experiences:", err);
       setExperiences(fallbackExperiences);
@@ -82,8 +86,17 @@ export const ExperienceProvider = ({
   }, []);
 
   useEffect(() => {
-    void fetchExperiences();
-  }, [fetchExperiences]);
+    void readExperiences()
+      .then(setExperiences)
+      .catch((err) => {
+        console.error("Error fetching experiences:", err);
+        setExperiences(fallbackExperiences);
+        setError(getFetchFallbackMessage("experience content", err));
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   const value = useMemo(
     () => ({
