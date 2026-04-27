@@ -1,4 +1,4 @@
-import { ExperienceContext } from "../context/Experience/ExperienceContext";
+import { ExperienceContext } from "../context/Experience/ExperienceContextValue";
 import { useRequiredContext } from "./useRequiredContext";
 
 export const useExperiences = () =>

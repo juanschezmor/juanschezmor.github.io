@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   createActivity as createActivityRequest,
   deleteActivity as deleteActivityRequest,
@@ -17,19 +11,7 @@ import {
 } from "../../api/client";
 import { activities as fallbackActivities } from "../../constants";
 import type { ActivityItem } from "../../types/Activity";
-
-interface ActivityContextType {
-  activities: ActivityItem[];
-  loading: boolean;
-  error: string | null;
-  fetchActivities: () => Promise<void>;
-  createActivity: (input: ActivityPayload) => Promise<void>;
-  deleteActivity: (id: string) => Promise<void>;
-}
-
-export const ActivityContext = createContext<ActivityContextType | undefined>(
-  undefined
-);
+import { ActivityContext } from "./ActivityContextValue";
 
 export const ActivityProvider = ({
   children,

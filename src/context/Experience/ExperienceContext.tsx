@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   createExperience as createExperienceRequest,
   deleteExperience as deleteExperienceRequest,
@@ -18,20 +12,7 @@ import {
 } from "../../api/client";
 import { experiences as fallbackExperiences } from "../../constants";
 import type { ExperienceItem } from "../../types/Experience";
-
-interface ExperienceContextType {
-  experiences: ExperienceItem[];
-  loading: boolean;
-  error: string | null;
-  fetchExperiences: () => Promise<void>;
-  createExperience: (input: ExperiencePayload) => Promise<void>;
-  updateExperience: (id: number, input: ExperiencePayload) => Promise<void>;
-  deleteExperience: (id: number) => Promise<void>;
-}
-
-export const ExperienceContext = createContext<
-  ExperienceContextType | undefined
->(undefined);
+import { ExperienceContext } from "./ExperienceContextValue";
 
 export const ExperienceProvider = ({
   children,

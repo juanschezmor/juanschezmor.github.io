@@ -1,4 +1,4 @@
-import { SkillContext } from "../context/Skill/SkillContext";
+import { SkillContext } from "../context/Skill/SkillContextValue";
 import { useRequiredContext } from "./useRequiredContext";
 
 export const useSkills = () =>

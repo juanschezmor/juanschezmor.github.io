@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   createSkill as createSkillRequest,
   deleteSkill as deleteSkillRequest,
@@ -17,19 +11,7 @@ import {
 } from "../../api/client";
 import { skills as fallbackSkills } from "../../constants";
 import type { SkillItem } from "../../types/Skill";
-
-interface SkillContextType {
-  skills: SkillItem[];
-  loading: boolean;
-  error: string | null;
-  fetchSkills: () => Promise<void>;
-  createSkill: (input: SkillPayload) => Promise<void>;
-  deleteSkill: (id: string) => Promise<void>;
-}
-
-export const SkillContext = createContext<SkillContextType | undefined>(
-  undefined
-);
+import { SkillContext } from "./SkillContextValue";
 
 export const SkillProvider = ({ children }: { children: React.ReactNode }) => {
   const [skills, setSkills] = useState<SkillItem[]>([]);

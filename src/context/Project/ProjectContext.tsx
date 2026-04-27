@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   createProject as createProjectRequest,
   deleteProject as deleteProjectRequest,
@@ -18,20 +12,7 @@ import {
 } from "../../api/client";
 import { projects as fallbackProjects } from "../../constants";
 import type { Project } from "../../types/Project";
-
-interface ProjectContextType {
-  projects: Project[];
-  loading: boolean;
-  error: string | null;
-  fetchProjects: () => Promise<void>;
-  createProject: (input: ProjectPayload) => Promise<void>;
-  updateProject: (id: string, input: ProjectPayload) => Promise<void>;
-  deleteProject: (id: string) => Promise<void>;
-}
-
-export const ProjectContext = createContext<ProjectContextType | undefined>(
-  undefined
-);
+import { ProjectContext } from "./ProjectContextValue";
 
 export const ProjectProvider = ({
   children,

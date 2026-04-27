@@ -1,4 +1,4 @@
-import { AdminAuthContext } from "../context/AdminAuth/AdminAuthContext";
+import { AdminAuthContext } from "../context/AdminAuth/AdminAuthContextValue";
 import { useRequiredContext } from "./useRequiredContext";
 
 export const useAdminAuth = () =>

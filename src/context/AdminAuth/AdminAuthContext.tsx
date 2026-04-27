@@ -1,11 +1,5 @@
 import type { ReactNode } from "react";
-import {
-  createContext,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { getAdminSession, type AdminLoginPayload, loginAdmin } from "../../api/adminAuth";
 import {
   clearStoredAdminSession,
@@ -15,19 +9,7 @@ import {
   subscribeToAdminSessionChanges,
 } from "../../auth/adminSession";
 import type { AdminSessionSnapshot } from "../../types/AdminAuth";
-
-interface AdminAuthContextValue {
-  session: AdminSessionSnapshot | null;
-  loading: boolean;
-  isAuthenticated: boolean;
-  login: (input: AdminLoginPayload) => Promise<void>;
-  logout: () => void;
-  refreshSession: () => Promise<void>;
-}
-
-export const AdminAuthContext = createContext<
-  AdminAuthContextValue | undefined
->(undefined);
+import { AdminAuthContext } from "./AdminAuthContextValue";
 
 const getInitialSession = () => {
   const session = getStoredAdminSession();
