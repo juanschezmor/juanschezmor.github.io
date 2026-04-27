@@ -2,6 +2,13 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
+const chunkGroups = {
+  react: ["react", "react-dom", "react-router-dom"],
+  i18n: ["i18next", "react-i18next"],
+  motion: ["framer-motion", "react-intersection-observer"],
+  icons: ["react-icons", "@fortawesome/fontawesome-free"],
+};
+
 // https://vite.dev/config/
 export default defineConfig({
   base: "/",
@@ -9,11 +16,14 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          react: ["react", "react-dom", "react-router-dom"],
-          i18n: ["i18next", "react-i18next"],
-          motion: ["framer-motion", "react-intersection-observer"],
-          icons: ["react-icons", "@fortawesome/fontawesome-free"],
+        manualChunks(id) {
+          for (const [chunkName, packages] of Object.entries(chunkGroups)) {
+            if (packages.some((packageName) => id.includes(`/node_modules/${packageName}/`))) {
+              return chunkName;
+            }
+          }
+
+          return undefined;
         },
       },
     },

@@ -248,7 +248,7 @@ Admin credentials and token secrets must be managed outside git.
 | CI/CD | Basic CI implemented with GitHub Actions; CD is still manual |
 | Tests | Not implemented yet |
 | Secret scanning | Gitleaks runs in CI on push and pull requests |
-| Dependency updates | Dependabot monitors npm packages and GitHub Actions monthly with grouped PRs; frontend majors are handled manually |
+| Dependency updates | Dependabot monitors npm packages and GitHub Actions monthly with grouped PRs; lint-tooling majors are handled manually |
 | Observability | Basic AWS logs, no dedicated dashboards or alarms yet |
 | Safer deployments | No canary or blue/green strategy yet |
 
@@ -272,7 +272,7 @@ This project is being evolved deliberately as a DevOps/Cloud learning path.
 ### Phase 3: Security Baseline
 
 - Gitleaks secret scanning added to CI.
-- Dependabot configuration added for frontend npm, Lambda npm, and GitHub Actions with grouped monthly PRs. Frontend major updates are reviewed manually.
+- Dependabot configuration added for frontend npm, Lambda npm, and GitHub Actions with grouped monthly PRs. ESLint and React Hooks lint major updates are reviewed manually.
 - Review IAM permissions and reduce broad access where possible.
 
 ### Phase 4: Automated Frontend Deployment

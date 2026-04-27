@@ -10,7 +10,13 @@ updates:
         patterns:
           - "*"
     ignore:
-      - dependency-name: "*"
+      - dependency-name: eslint
+        update-types:
+          - version-update:semver-major
+      - dependency-name: "@eslint/js"
+        update-types:
+          - version-update:semver-major
+      - dependency-name: eslint-plugin-react-hooks
         update-types:
           - version-update:semver-major
 
