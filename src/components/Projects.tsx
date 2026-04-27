@@ -1,11 +1,10 @@
 import ProjectCard from "./ProjectCard";
 import "../styles/projects.css";
-import { useEffect, useMemo, useState, type KeyboardEvent } from "react";
+import { useMemo, useState, type KeyboardEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useProjects } from "../hooks/useProjects";
 import { projects as fallbackProjects } from "../constants";
-import type { Project } from "../types/Project";
 
 const Projects = () => {
   const { projects, loading, error } = useProjects();
@@ -14,12 +13,11 @@ const Projects = () => {
     () => (projects.length > 0 ? projects : fallbackProjects),
     [projects]
   );
-  const [shownProject, setShownProject] = useState<Project>(activeProjects[0]);
+  const [shownProjectId, setShownProjectId] = useState(activeProjects[0].id);
   const [direction, setDirection] = useState(0);
-
-  useEffect(() => {
-    setShownProject(activeProjects[0]);
-  }, [activeProjects]);
+  const shownProject =
+    activeProjects.find((project) => project.id === shownProjectId) ??
+    activeProjects[0];
 
   const handleNextProject = () => {
     const currentIndex = activeProjects.findIndex(
@@ -27,7 +25,7 @@ const Projects = () => {
     );
     const nextIndex = (currentIndex + 1) % activeProjects.length;
     setDirection(1);
-    setShownProject(activeProjects[nextIndex]);
+    setShownProjectId(activeProjects[nextIndex].id);
   };
 
   const handlePreviousProject = () => {
@@ -37,7 +35,7 @@ const Projects = () => {
     const previousIndex =
       (currentIndex - 1 + activeProjects.length) % activeProjects.length;
     setDirection(-1);
-    setShownProject(activeProjects[previousIndex]);
+    setShownProjectId(activeProjects[previousIndex].id);
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {

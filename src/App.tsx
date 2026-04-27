@@ -8,15 +8,15 @@ import AppProviders from "./components/AppProviders";
 
 type Theme = "dark" | "light";
 
-function App() {
-  const [theme, setTheme] = useState<Theme>("dark");
+const getInitialTheme = (): Theme => {
+  const storedTheme = globalThis.localStorage.getItem("portfolio-theme");
+  return storedTheme === "dark" || storedTheme === "light"
+    ? storedTheme
+    : "dark";
+};
 
-  useEffect(() => {
-    const storedTheme = globalThis.localStorage.getItem("portfolio-theme");
-    if (storedTheme === "dark" || storedTheme === "light") {
-      setTheme(storedTheme);
-    }
-  }, []);
+function App() {
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
