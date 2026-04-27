@@ -247,7 +247,7 @@ Admin credentials and token secrets must be managed outside git.
 | Infrastructure as Code | Partial scripting, not declarative IaC yet |
 | CI/CD | Basic CI implemented with GitHub Actions; CD is still manual |
 | Tests | Not implemented yet |
-| Secret scanning | Not implemented yet |
+| Secret scanning | Gitleaks runs in CI on push and pull requests |
 | Observability | Basic AWS logs, no dedicated dashboards or alarms yet |
 | Safer deployments | No canary or blue/green strategy yet |
 
@@ -270,7 +270,7 @@ This project is being evolved deliberately as a DevOps/Cloud learning path.
 
 ### Phase 3: Security Baseline
 
-- Add secret scanning with `gitleaks` or `trufflehog`.
+- Gitleaks secret scanning added to CI.
 - Add Dependabot configuration.
 - Review IAM permissions and reduce broad access where possible.
 
