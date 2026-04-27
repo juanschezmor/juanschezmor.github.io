@@ -8,8 +8,7 @@ The goal of this repository is not only to host a portfolio, but to evolve it in
 
 - Public site: <https://juanschezmor.github.io>
 - Admin panel: <https://juanschezmor.github.io/admin>
-- API Gateway stage: `https://gte913rmml.execute-api.eu-north-1.amazonaws.com/prod`
-- AWS region: `eu-north-1`
+- Backend: AWS API Gateway + Lambda
 
 The admin panel is private and requires credentials configured as Lambda environment variables. Local credential files are intentionally excluded from git.
 
