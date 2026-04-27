@@ -10,7 +10,11 @@ param(
   [string]$ResumesByLanguageIndex = "LanguageUploadedAtIndex",
   [string]$ResumesBucket = "portfolio-juanschezmor-resumes-519845866784",
   [int]$ResumeHistoryLimit = 5,
-  [int]$ResumeMaxFileBytes = 5242880
+  [int]$ResumeMaxFileBytes = 5242880,
+  [string]$AdminUsername = "",
+  [string]$AdminPassword = "",
+  [string]$AdminTokenSecret = "",
+  [int]$AdminTokenTtlSeconds = 604800
 )
 
 $ErrorActionPreference = "Stop"
@@ -308,15 +312,71 @@ function Ensure-RolePolicy {
   }
 }
 
-function New-LambdaEnvironmentFile {
-  return New-TempJsonFile -Depth 4 -Value @{
-    Variables = @{
-      RESUMES_BUCKET = $ResumesBucket
-      RESUMES_TABLE = $ResumesTable
-      RESUMES_BY_LANGUAGE_INDEX = $ResumesByLanguageIndex
-      RESUME_HISTORY_LIMIT = "$ResumeHistoryLimit"
-      RESUME_MAX_FILE_BYTES = "$ResumeMaxFileBytes"
+function Get-LambdaEnvironmentVariables {
+  param(
+    [Parameter(Mandatory = $true)]
+    [string]$FunctionName
+  )
+
+  $config = Invoke-AwsJson -Arguments @(
+    "lambda",
+    "get-function-configuration",
+    "--function-name",
+    $FunctionName
+  )
+
+  $variables = @{}
+
+  if ($config.Environment -and $config.Environment.Variables) {
+    foreach ($property in $config.Environment.Variables.PSObject.Properties) {
+      $variables[$property.Name] = [string]$property.Value
     }
+  }
+
+  return $variables
+}
+
+function New-LambdaEnvironmentFile {
+  param(
+    [Parameter(Mandatory = $true)]
+    [string]$FunctionName,
+    [Parameter(Mandatory = $true)]
+    [bool]$FunctionExists
+  )
+
+  $variables = @{}
+
+  if ($FunctionExists) {
+    $existingVariables = Get-LambdaEnvironmentVariables -FunctionName $FunctionName
+
+    foreach ($entry in $existingVariables.GetEnumerator()) {
+      if ($entry.Key -like "ADMIN_*") {
+        $variables[$entry.Key] = $entry.Value
+      }
+    }
+  }
+
+  if (-not [string]::IsNullOrWhiteSpace($AdminUsername)) {
+    $variables["ADMIN_USERNAME"] = $AdminUsername
+  }
+
+  if (-not [string]::IsNullOrWhiteSpace($AdminPassword)) {
+    $variables["ADMIN_PASSWORD"] = $AdminPassword
+  }
+
+  if (-not [string]::IsNullOrWhiteSpace($AdminTokenSecret)) {
+    $variables["ADMIN_TOKEN_SECRET"] = $AdminTokenSecret
+    $variables["ADMIN_TOKEN_TTL_SECONDS"] = "$AdminTokenTtlSeconds"
+  }
+
+  $variables["RESUMES_BUCKET"] = $ResumesBucket
+  $variables["RESUMES_TABLE"] = $ResumesTable
+  $variables["RESUMES_BY_LANGUAGE_INDEX"] = $ResumesByLanguageIndex
+  $variables["RESUME_HISTORY_LIMIT"] = "$ResumeHistoryLimit"
+  $variables["RESUME_MAX_FILE_BYTES"] = "$ResumeMaxFileBytes"
+
+  return New-TempJsonFile -Depth 4 -Value @{
+    Variables = $variables
   }
 }
 
@@ -333,7 +393,7 @@ function Ensure-LambdaFunction {
     $Function.Name
   )
 
-  $environmentFile = New-LambdaEnvironmentFile
+  $environmentFile = New-LambdaEnvironmentFile -FunctionName $Function.Name -FunctionExists $functionExists
   $zipFileArgument = "fileb://$codeZipPath"
 
   try {
