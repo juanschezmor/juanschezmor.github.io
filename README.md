@@ -254,7 +254,7 @@ Admin credentials and token secrets must be managed outside git.
 | Production backend | Serverless AWS API with Lambda, API Gateway, DynamoDB, and S3 |
 | Deployment automation | Manual scripts and `npm run deploy` |
 | Infrastructure as Code | Partial scripting, not declarative IaC yet |
-| CI/CD | Not implemented yet |
+| CI/CD | Basic CI implemented with GitHub Actions; CD is still manual |
 | Tests | Not implemented yet |
 | Secret scanning | Not implemented yet |
 | Observability | Basic AWS logs, no dedicated dashboards or alarms yet |
@@ -272,10 +272,10 @@ This project is being evolved deliberately as a DevOps/Cloud learning path.
 
 ### Phase 2: Continuous Integration
 
-- Add GitHub Actions.
+- GitHub Actions workflow added in `.github/workflows/ci.yml`.
 - Run `npm ci`.
-- Run lint and production build on every pull request.
-- Add backend package validation for Lambda folders.
+- Run lint and production build on every push or pull request to `main`.
+- Validate dependency installation for Lambda package folders.
 
 ### Phase 3: Security Baseline
 
