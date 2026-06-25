@@ -97,15 +97,28 @@ export const activateResume = (id: string) =>
 export const deleteResumeVersion = (id: string) =>
   sendRequest(`/resumes/${id}`, { method: "DELETE" }, { requiresAuth: true });
 
+const trackResumeEvent = (action: "open" | "download", language: ResumeLanguage) => {
+  if (typeof window.gtag === "function") {
+    window.gtag("event", "file_download", {
+      file_name: `cv_${language}.pdf`,
+      file_extension: "pdf",
+      link_text: action === "open" ? "open_cv" : "download_cv",
+      language,
+    });
+  }
+};
+
 export const openActiveResumeFromAws = async (language: ResumeLanguage) => {
   const fallback = getLegacyResumeFallback(language);
   const previewWindow = openPreviewWindow();
 
   try {
     const blob = await fetchResumeBlob(language);
+    trackResumeEvent("open", language);
     openBlobInWindow(blob, previewWindow);
   } catch {
     previewWindow?.close();
+    trackResumeEvent("open", language);
     triggerDownload(fallback.publicPath, fallback.downloadName);
   }
 };
@@ -114,8 +127,10 @@ export const downloadActiveResume = (language: ResumeLanguage) => {
   const fallback = getLegacyResumeFallback(language);
 
   try {
+    trackResumeEvent("download", language);
     triggerDownload(getResumeDownloadUrl(language));
   } catch {
+    trackResumeEvent("download", language);
     triggerDownload(fallback.publicPath, fallback.downloadName);
   }
 };
